@@ -1,0 +1,15 @@
+// This page handles the routes for Subject Mark Field
+
+// Subject Mark Field information backend code 
+const { Router } = require("express");
+const mongoose = require('mongoose')
+
+const GetSMF = Router()
+
+// calling the schema 
+require('../models/Admin/SubjectMarkField')
+
+// setting up the schema for the Subject Mark Field information backend
+const SubjectMarkFields = mongoose.model('SubjectMarkField')
+
+module.exports = GetSapi
