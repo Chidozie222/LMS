@@ -1,0 +1,15 @@
+const mongoose = require('mongoose')
+
+
+const Auth = new mongoose.Schema(
+    {
+        SchoolName: { type: String, unique: true, require: true },
+        Phone: {type: Number, unique: true, re}
+    },
+    {
+        collection: "Admin_User"
+    }
+)
+
+
+mongoose.model(Auth, "Auth")

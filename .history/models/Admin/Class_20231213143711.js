@@ -1,0 +1,12 @@
+const mongoose = require('mongoose')
+
+
+const Class = new mongoose.Schema(
+    {
+        ClassName: String,
+        ClassNumber: Number,
+        ClassCapacity: Number,
+        ClassTeacher: String,
+        ClassSt
+    }
+)
