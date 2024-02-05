@@ -11,12 +11,12 @@ require('../models/Admin/student')
 const SAPI = mongoose.model('SAPI')
 
 ParentAuth.post('/ParentAuth', async (req, res) => {
-    const { SchoolEmail, ParentUsername, ParentPassword } = req.body
+    const { SchoolEmail, ParentEmail, ParentPassword } = req.body
     
     // error handler
     try {
         // checking if the email exists
-        let user = await SAPI.findOne({ SchoolEmail, ParentUsername })
+        let user = await SAPI.findOne({ SchoolEmail, ParentEmail })
         // ifesle statement for checking the user vaildation
         if (user) {
             if (user.ParentPassword == ParentPassword) {

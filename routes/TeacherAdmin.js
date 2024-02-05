@@ -11,12 +11,12 @@ require('../models/Admin/teacher')
 const Teachers = mongoose.model('Teachers')
 
 TeacherAuth.post('/TeacherAuth', async (req, res) => {
-    const { SchoolEmail, TeacherUsername, TeacherPassword } = req.body
+    const { SchoolEmail, TeacherEmail, TeacherPassword } = req.body
     
     // error handler
     try {
         // checking if the email exists
-        let user = await Teachers.findOne({ SchoolEmail, TeacherUsername })
+        let user = await Teachers.findOne({ SchoolEmail, TeacherEmail })
         // ifesle statement for checking the user vaildation
         if (user) {
             if (user.TeacherPassword == TeacherPassword) {

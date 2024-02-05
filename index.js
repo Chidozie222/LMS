@@ -55,6 +55,7 @@ const TimeTable = require('./routes/TimeTable')
 const GetTimeTable = require('./routes/GetTimeTable')
 const UpdateTimeTable = require('./routes/UpdateTimeTable')
 const StudentFeatureTimeTable = require('./routes/StudentfeatureTimeTable')
+const generalSignIn = require('./routes/GeneralSignin')
 require('dotenv').config()
 
 // initialing the express app
@@ -118,6 +119,7 @@ app.use(TimeTable)
 app.use(GetTimeTable)
 app.use(UpdateTimeTable)
 app.use(StudentFeatureTimeTable)
+app.use(generalSignIn)
 // connection to the database configuration 
 mongoose.connect(process.env.mongoUrl)
     .then(() => {
