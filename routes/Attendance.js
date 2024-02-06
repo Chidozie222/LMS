@@ -26,13 +26,11 @@ Attendance.post('/Attendance', async (req, res) => {
             await Attendances.insertMany([{
                 Class,
                 Date,
-                student: {
-                    RollNumber,
-                    StudentFirstName,
-                    StudentLastName,
-                    Absent,
-                    Reason
-                },
+                RollNumber,
+                StudentFirstName,
+                StudentLastName,
+                Absent,
+                Reason,
                 SchoolEmail
             }])
             res.send({ status: 'ok', message: 'Attendance taken' })
