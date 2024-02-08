@@ -17,7 +17,7 @@ const TeacherAttendances = mongoose.model('TeacherAttendance')
 TeacherAttendance.post('/TeacherAttendance', async (req, res) => {
     const { Date, TeacherFirstName, TeacherLastName, Absent, Reason, SchoolEmail } = req.body 
 
-    let UserByClassAndDate = await TeacherAttendances.find({ SchoolEmail, Date, TeacherFirstName, TeacherLastName })
+    let UserByClassAndDate = await TeacherAttendances.find({ SchoolEmail, Date, TeacherLastName })
     
     try {
         if (UserByClassAndDate.length > 0) {
