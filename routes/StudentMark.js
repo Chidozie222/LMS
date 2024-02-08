@@ -28,13 +28,11 @@ StudentMark.post('/StudentMark', async(req, res) => {
                 Class, 
                 Examination, 
                 Subject, 
-                Student: {
-                    RollNumber, 
-                    StudentFirstName, 
-                    StudentLastName, 
-                    Grade, 
-                    Remarks,
-                },
+                RollNumber, 
+                StudentFirstName, 
+                StudentLastName, 
+                Grade, 
+                Remarks,
                 SchoolEmail
             })
             res.send({ status: 'ok', message: 'data uploaded successfully' })
