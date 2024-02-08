@@ -45,7 +45,7 @@ UpdateTeacher.post('/Updateteachers', upload.single('TeacherPicture'), async (re
         if (TP > MaxFileSize) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
             } else {
-                await Teachers.Update(
+                await Teachers.findOneAndUpdate(
                     {SchoolEmail, TeacherUsername},
                     {
                         $set:
