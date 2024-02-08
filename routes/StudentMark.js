@@ -24,7 +24,7 @@ StudentMark.post('/StudentMark', async(req, res) => {
         if (User.length > 0) {
             res.send({ status: 'error', message: 'sorry, but student has been given a grade' })
         } else {
-            await StudentMarks.insertMany([{
+            await StudentMarks.create({
                 Class, 
                 Examination, 
                 Subject, 
@@ -36,7 +36,7 @@ StudentMark.post('/StudentMark', async(req, res) => {
                     Remarks,
                 },
                 SchoolEmail
-            }])
+            })
             res.send({ status: 'ok', message: 'data uploaded successfully' })
         }
     } catch (error) {
