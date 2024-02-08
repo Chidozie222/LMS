@@ -17,22 +17,20 @@ const TeacherAttendances = mongoose.model('TeacherAttendance')
 TeacherAttendance.post('/TeacherAttendance', async (req, res) => {
     const { Date, TeacherFirstName, TeacherLastName, Absent, Reason, SchoolEmail } = req.body 
 
-    let UserByClassAndDate = await TeacherAttendances.find({ SchoolEmail, Date })
+    let UserByClassAndDate = await TeacherAttendances.find({ SchoolEmail, Date, TeacherFirstName, TeacherLastName })
     
     try {
         if (UserByClassAndDate.length > 0) {
             res.send({ status: 'error', message: 'attendances has already been taken' })
         } else {
-            await TeacherAttendances.insertMany([{
+            await TeacherAttendances.create({
                 Date,
-                Teacher: {
-                    TeacherFirstName,
-                    TeacherLastName,
-                    Absent,
-                    Reason
-                },
+                TeacherFirstName,
+                TeacherLastName,
+                Absent,
+                Reason,
                 SchoolEmail
-            }])
+            })
             res.send({ status: 'ok', message: 'Attendance taken' })
         }
     } catch (error) {
