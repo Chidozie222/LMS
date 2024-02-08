@@ -31,6 +31,7 @@ UpdateAttendance.post('/UpdateAttendance', async (req, res) => {
             res.send({ status: 'ok', message: 'Attendance taken' })
     } catch (error) {
         res.send({ status: 'error', message: 'error in the server' })
+        console.log(error)
     }
 })
 
