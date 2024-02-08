@@ -18,7 +18,7 @@ StudentExam.get('/StudentExam/:SchoolEmail/:Class', async (req, res) => {
         let SchoolEmail = req.params.SchoolEmail
         let Class = req.params.Class;
 
-        let user = await Examinations.findOne({ SchoolEmail, Class })
+        let user = await Examinations.find({ SchoolEmail, Class })
 
         if (user && user.length > 0) {
             res.send({status: 'ok', data: user})
