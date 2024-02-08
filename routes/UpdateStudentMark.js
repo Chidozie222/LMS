@@ -16,12 +16,12 @@ const StudentMarks = mongoose.model('StudentMark')
 
 // routes for posting the student marks information
 UpdateStudentMark.post('/UpdateStudentMark', async(req, res) => {
-    const { Class, Examination, Subject, StudentFirstName, StudentLastName, Grade, Remarks, SchoolEmail } = req.body
+    const { Class, Examination, Subject, RollNumber, Grade, Remarks, SchoolEmail } = req.body
 
 
     try {
             await StudentMarks.findOneAndUpdate(
-                { SchoolEmail, Class, Examination, Subject, StudentFirstName, StudentLastName },
+                { SchoolEmail, Class, Examination, Subject, RollNumber },
                 {
                     $set:
                     {
