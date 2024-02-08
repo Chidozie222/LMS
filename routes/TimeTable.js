@@ -18,7 +18,7 @@ TimeTable.post('/TimeTable', async (req, res) => {
     const { StartTime, EndTime, Subject, Teacher, Day, Class, SchoolEmail } = req.body
 
     try {
-        const UserByClass = await TimeTables.find({ SchoolEmail, Class })
+        const UserByClass = await TimeTables.find({ SchoolEmail, Class, Day, StartTime })
 
         if (UserByClass.length > 0) {
             res.send({ status: 'error', message: 'User has already available' })
