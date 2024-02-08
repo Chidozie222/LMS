@@ -15,11 +15,11 @@ const TeacherAttendances = mongoose.model('TeacherAttendance')
 
 
 UpdateTeacherAttendance.post('/UpdateTeacherAttendance', async (req, res) => {
-    const { Date, Absent, Reason, SchoolEmail } = req.body 
+    const { Date, Absent, Reason, TeacherLastName, SchoolEmail } = req.body 
 
     try {
             await TeacherAttendances.findOneAndUpdate(
-                { SchoolEmail, Date },
+                { SchoolEmail, Date, TeacherLastName },
                 {
                     $set: 
                     {
