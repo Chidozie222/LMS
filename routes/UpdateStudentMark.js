@@ -21,7 +21,7 @@ UpdateStudentMark.post('/UpdateStudentMark', async(req, res) => {
 
     try {
             await StudentMarks.findOneAndUpdate(
-                { SchoolEmail, Class, Examination, Subject, RollNumber },
+                { SchoolEmail, Class, Examination, Subject, Student.RollNumber: RollNumber },
                 {
                     $set:
                     {
