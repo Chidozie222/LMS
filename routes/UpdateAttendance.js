@@ -23,10 +23,8 @@ UpdateAttendance.post('/UpdateAttendance', async (req, res) => {
                 {
                     $set:
                     {
-                        student: {
-                            Absent, 
-                            Reason
-                        }
+                        Absent, 
+                        Reason
                     }
                 }
             )
