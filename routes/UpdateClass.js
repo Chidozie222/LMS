@@ -15,7 +15,7 @@ const Classes = mongoose.model('Class')
 UpdateClass.post('/UpdateClass', async (req, res) => {
     const { Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail } = req.body
     try {
-        await Classes.Update(
+        await Classes.findOneAndUpdate(
                 { SchoolEmail, Class },
                 {
                     $set:
