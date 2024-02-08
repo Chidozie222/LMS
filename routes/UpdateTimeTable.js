@@ -18,7 +18,7 @@ UpdateTimeTable.post('/UpdateTimeTable', async (req, res) => {
     const { StartTime, EndTime, Subject, Teacher, Day, Class, SchoolEmail } = req.body 
 
     try {
-            await TimeTables.Update(
+            await TimeTables.findOneAndUpdate(
                 { SchoolEmail, Class, Day },
                 {
                     $set: 
