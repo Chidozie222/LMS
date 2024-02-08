@@ -18,7 +18,7 @@ UpdateSubject.post('/UpdateSubject', async (req, res) => {
     const { Class, SubjectName, SubjectCode, SubjectTeacher, BookName, SchoolEmail } = req.body
 
     try {
-        await Subjects.Update(
+        await Subjects.findOneAndUpdate(
             { SchoolEmail, SubjectName },
             {
                 $set:
