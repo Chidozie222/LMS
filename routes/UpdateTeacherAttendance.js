@@ -18,7 +18,7 @@ UpdateTeacherAttendance.post('/UpdateTeacherAttendance', async (req, res) => {
     const { Date, Absent, Reason, SchoolEmail } = req.body 
 
     try {
-            await TeacherAttendances.Update(
+            await TeacherAttendances.findOneAndUpdate(
                 { SchoolEmail, Date },
                 {
                     $set: 
