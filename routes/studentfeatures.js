@@ -18,7 +18,7 @@ StudentFeatures.get('/StudentFeatures/:SchoolEmail/:class', async (req, res) => 
         let SchoolEmail = req.params.SchoolEmail
         let Class = req.params.class
 
-        let user = await Classes.findOne({ SchoolEmail, Class })
+        let user = await Classes.find({ SchoolEmail, Class })
 
         if (user && user.length > 0) {
             res.send({status: 'ok', data: user})
