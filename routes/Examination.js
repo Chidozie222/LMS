@@ -23,7 +23,7 @@ Examination.post('/Examination', async (req, res) => {
             if (UserByExamination.length > 0) {
                 res.send({ status: 'error', message: 'user already exist' })
             } else {
-                await Examinations.insertMany([
+                await Examinations.create(
                     {
                         Class, 
                         Examination, 
@@ -32,7 +32,7 @@ Examination.post('/Examination', async (req, res) => {
                         Subject, 
                         SchoolEmail
                     }
-                ])
+                )
         
                 res.send({ status: 'ok', message: 'data uploaded successfully' })
             }
