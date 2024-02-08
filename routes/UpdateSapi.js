@@ -87,6 +87,7 @@ UpdateSapi.post('/UpdateSapi', upload.fields([{ name: 'StudentPicture', maxCount
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
     } catch (error) {
+        console.log(error)
         res.send({ status: 'error', message: 'Error in the server' })
     }
 })
