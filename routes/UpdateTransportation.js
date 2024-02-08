@@ -18,7 +18,7 @@ UpdateTransportation.post('/UpdateTransportation', async (req, res) => {
     const { VehicleName, VehicleNumber, DriverName, DriverPhone, RouteFees, VehicleRoute, SchoolEmail } = req.body
 
     try {
-            await Transportations.Update(
+            await Transportations.findOneAndUpdate(
                 { SchoolEmail, DriverName },
                 {
                     $set: 
