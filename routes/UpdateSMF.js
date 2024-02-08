@@ -17,7 +17,7 @@ UpdateSMF.post('/UpdateSubjectMarkField', async (req, res) => {
     const { Class, SubjectName, Field, SchoolEmail } = req.body
 
     try {
-        await SubjectMarkFields.Update(
+        await SubjectMarkFields.findOneAndUpdate(
             { SchoolEmail, Class, SubjectName },
             {
                 $set:
