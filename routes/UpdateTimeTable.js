@@ -19,7 +19,7 @@ UpdateTimeTable.post('/UpdateTimeTable', async (req, res) => {
 
     try {
             await TimeTables.findOneAndUpdate(
-                { SchoolEmail, Class, Day },
+                { SchoolEmail, Class, Day, StartTime },
                 {
                     $set: 
                     {
