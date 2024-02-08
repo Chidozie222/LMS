@@ -15,7 +15,8 @@ const Attendances = mongoose.model('Attendance')
 
 
 Attendance.post('/Attendance', async (req, res) => {
-    const { Class, Date, RollNumber, StudentFirstName, StudentLastName, Absent, Reason, SchoolEmail } = req.body 
+    const { Class, Date, RollNumber, StudentFirstName, StudentLastName, Absent, Reason, SchoolEmail } = req.body
+    const data = req.body;
 
     let UserByClassAndDate = await Attendances.find({ SchoolEmail, Class, Date })
     
@@ -23,16 +24,7 @@ Attendance.post('/Attendance', async (req, res) => {
         if (UserByClassAndDate.length > 0) {
             res.send({ status: 'error', message: 'attendances has already been taken' })
         } else {
-            await Attendances.insertMany([{
-                Class,
-                Date,
-                RollNumber,
-                StudentFirstName,
-                StudentLastName,
-                Absent,
-                Reason,
-                SchoolEmail
-            }])
+            await Attendances.insertMany(data)
             res.send({ status: 'ok', message: 'Attendance taken' })
         }
     } catch (error) {
