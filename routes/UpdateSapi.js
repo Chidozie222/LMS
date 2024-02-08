@@ -47,7 +47,7 @@ UpdateSapi.post('/UpdateSapi', upload.fields([{ name: 'StudentPicture', maxCount
         if (SP > MaxFileSize && PP > MaxFileSize) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
             } else {
-            await SAPI.Update(
+            await SAPI.findOneAndUpdate(
                     {SchoolEmail, StudentUsername},
                     {
                         $set:
