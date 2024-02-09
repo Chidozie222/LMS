@@ -121,7 +121,7 @@ app.use(UpdateTimeTable)
 app.use(StudentFeatureTimeTable)
 app.use(generalSignIn)
 // connection to the database configuration 
-mongoose.connect(process.env.mongoUrl)
+mongoose.connect(process.env.MONGOURL)
     .then(() => {
         console.log('connected to database');
     }) 
