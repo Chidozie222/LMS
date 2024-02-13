@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-signup.use(express.static('public'))
+signup.use('/uploads', express.static('public/uploads'))
 
 // sign up post route
 
