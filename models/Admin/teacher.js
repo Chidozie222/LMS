@@ -4,9 +4,7 @@ const mongoose = require('mongoose')
 const Teachers = new mongoose.Schema(
     {
         TeacherPicture: String,
-        TeacherMale: Boolean,
-        TeacherFemale: Boolean,
-        TeacherOther: Boolean,
+        TeacherGender: String,
         TeacherFirstName: String,
         TeacherMiddleName: String,
         TeacherLastName: String,
