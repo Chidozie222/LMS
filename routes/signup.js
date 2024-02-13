@@ -31,7 +31,7 @@ signup.use(express.static('public'))
 // sign up post route
 
 signup.post('/signup', upload.single('SchoolLogo'), async (req, res) => {
-    const { SchoolName, SchoolPhone, SchoolEmail, SchoolAddress, SchoolCity, SchoolState, SchoolCountry, SchoolWebsite, Password } = req.body
+    const { adminName, SchoolName, SchoolPhone, SchoolEmail, SchoolAddress, SchoolCity, SchoolState, SchoolCountry, SchoolWebsite, Role, Password } = req.body
     // check if the image was gotten from the frontend
     if (!req.file) {
         return res.status(400).send({ status: 'error', message: 'No image file uploaded' });
@@ -50,6 +50,7 @@ signup.post('/signup', upload.single('SchoolLogo'), async (req, res) => {
             } else {
                 // loading the data into the database
                 await Auth.create({
+                    adminName,
                     SchoolName,
                     SchoolPhone, 
                     SchoolEmail,
@@ -59,6 +60,7 @@ signup.post('/signup', upload.single('SchoolLogo'), async (req, res) => {
                     SchoolCountry,
                     SchoolWebsite,
                     SchoolLogo,
+                    Role,
                     Password
                 })
 
