@@ -20,7 +20,7 @@ signin.post('/signin', async (req, res) => {
         // ifesle statement for checking the user vaildation
         if (user) {
             if (user.Password == Password) {
-                res.send({status: 'ok', message: 'you successfully logged in', data: user})
+                res.send({status: 'ok', message: 'you are successfully logged in', data: user})
             } else {
                 res.send({status: 'error', message: 'Password is Incorrect'})
             }
