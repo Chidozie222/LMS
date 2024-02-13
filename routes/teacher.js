@@ -53,9 +53,7 @@ Teacher.post('/teachers', upload.single('TeacherPicture'), async (req, res) => {
             } else {
                 await Teachers.create({
                     TeacherPicture,
-                    TeacherMale,
-                    TeacherFemale,
-                    TeacherOther,
+                    TeacherGender,
                     TeacherFirstName,
                     TeacherMiddleName,
                     TeacherLastName,
