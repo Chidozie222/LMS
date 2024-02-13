@@ -45,9 +45,7 @@ CsvTeacher.post('/CsvTeacher', upload.single('CsvTeacher'), async (req, res) => 
                                 res.send({status: 'error', message: 'User Already exists'})
                             } else {
                                     await Teachers.insertMany([{
-                                        TeacherMale: item.TeacherMale,
-                                        TeacherFemale: item.TeacherFemale,
-                                        TeacherOther: item.TeacherOther,
+                                        TeacherGender: item.TeacherGender,
                                         TeacherFirstName: item.TeacherFirstName,
                                         TeacherMiddleName: item.TeacherMiddleName,
                                         TeacherLastName: item.TeacherLastName,
