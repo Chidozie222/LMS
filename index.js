@@ -65,6 +65,8 @@ app.use(express.json())
 // initialing the middleware for the frontend 
 app.use(cors())
 
+app.use(express.static('public'))
+
 // getting routes
 app.use(home)
 app.use(signup)
