@@ -54,9 +54,7 @@ CsvSapi.post('/CsvSAPI', upload.single('CsvSAPI'), async (req, res) => {
                             res.send({status: 'error', message: 'User Already exists'})
                         } else {
                                 await SAPI.insertMany([{
-                                    StudentMale: item.StudentMale,
-                                    StudentFemale: item.StudentFemale,
-                                    StudentOther: item.StudentOther,
+                                    StudentGender: item.StudentGender,
                                     StudentFirstName: item.StudentFirstName,
                                     StudentMiddleName: item.StudentMiddleName,
                                     StudentLastName: item.StudentLastName,
