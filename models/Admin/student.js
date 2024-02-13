@@ -4,9 +4,7 @@ const mongoose = require('mongoose')
 const SAPI = new mongoose.Schema(
     {
         StudentPicture: String,
-        StudentMale: Boolean,
-        StudentFemale: Boolean,
-        StudentOther: Boolean,
+        StudentGender: String,
         StudentFirstName: String,
         StudentMiddleName: String,
         StudentLastName: String,
@@ -18,9 +16,7 @@ const SAPI = new mongoose.Schema(
         StudentCountry: String,
         StudentZipCode: Number,
         ParentPicture: String,
-        ParentMale: Boolean,
-        ParentFemale: Boolean,
-        ParentOther: Boolean,
+        ParentGender: String,
         ParentFirstName: String,
         ParentMiddleName: String,
         ParentLastName: String,
