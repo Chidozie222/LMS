@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 
-const SAPI = new mongoose.Schema(
+const Parent = new mongoose.Schema(
     {
         ParentPicture: String,
         ParentGender: String,
