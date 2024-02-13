@@ -3,18 +3,6 @@ const mongoose = require('mongoose')
 
 const SAPI = new mongoose.Schema(
     {
-        StudentPicture: String,
-        StudentGender: String,
-        StudentFirstName: String,
-        StudentMiddleName: String,
-        StudentLastName: String,
-        StudentDoB: Date,
-        StudentBloodGroup: String,
-        StudentPhoneNumber: Number,
-        StudentAddress: String,
-        StudentCity: String,
-        StudentCountry: String,
-        StudentZipCode: Number,
         ParentPicture: String,
         ParentGender: String,
         ParentFirstName: String,
@@ -27,12 +15,7 @@ const SAPI = new mongoose.Schema(
         ParentPhone: Number,
         ParentEducation: String,
         ParentProfession: String,
-        StudentEmail: String,
-        StudentUsername: String,
-        StudentPassword: String,
-        StudentJoiningDate: { type: Date, default: Date.now },
         Class: String,
-        RollNumber: Number,
         Role: String,
         SchoolEmail: String,
     },
@@ -42,4 +25,4 @@ const SAPI = new mongoose.Schema(
 )
 
 
-mongoose.model("SAPI", SAPI)
+mongoose.model("Parent", )

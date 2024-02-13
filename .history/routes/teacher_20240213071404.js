@@ -60,7 +60,7 @@ Teacher.post('/teachers', upload.single('TeacherPicture'), async (req, res) => {
                     TeacherDoB,
                     TeacherBloodGroup,
                     TeacherPhoneNumber,
-                    TeacherQualification,
+                    TeacherQulification: TeacherQualification,
                     TeacherAddress,
                     TeacherCity,
                     TeacherCountry,

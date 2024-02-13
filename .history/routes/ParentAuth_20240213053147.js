@@ -5,10 +5,10 @@ const mongoose = require("mongoose")
 const ParentAuth = Router()
 
 // calling the schema 
-require('../models/Admin/Parent')
+require('../models/Admin/student')
 
 // setting up the schema for the Student and Parent information backend
-const SAPI = mongoose.model('Parent')
+const SAPI = mongoose.model('SAPI')
 
 ParentAuth.post('/ParentAuth', async (req, res) => {
     const { SchoolEmail, ParentEmail, ParentPassword } = req.body

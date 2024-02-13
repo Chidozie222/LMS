@@ -24,12 +24,6 @@ require('../models/Admin/student')
 const SAPI = mongoose.model('SAPI')
 
 
-// calling the schema 
-require('../models/Admin/Parent')
-
-// setting up the schema for the Student and Parent information backend
-const Parent = mongoose.model('Parent')
-
 
 generalSignIn.post('/GeneralSignIn', async(req, res) => {
     const { SchoolEmail, Password, TeacherEmail, TeacherPassword, ParentEmail, ParentPassword, StudentEmail, StudentPassword } = req.body
@@ -38,7 +32,7 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
         // checking if the email exists
         let adminEmail = await Auth.findOne({ SchoolEmail })
         let teacherEmail = await Teachers.findOne({ SchoolEmail, TeacherEmail }) 
-        let parentEmail = await Parent.findOne({ SchoolEmail, ParentEmail })
+        let parentEmail = await SAPI.findOne({ SchoolEmail, ParentEmail })
         let studentEmail = await SAPI.findOne({ SchoolEmail, StudentEmail })
 
         // Checking for if they are vaild 

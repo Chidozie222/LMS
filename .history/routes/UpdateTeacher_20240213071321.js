@@ -60,7 +60,7 @@ UpdateTeacher.post('/Updateteachers', upload.single('TeacherPicture'), async (re
                             TeacherDoB, 
                             TeacherBloodGroup,
                             TeacherPhoneNumber, 
-                            TeacherQualification, 
+                            TeacherQulification: TeacherQualification, 
                             TeacherAddress, 
                             TeacherCity, 
                             TeacherCountry, 

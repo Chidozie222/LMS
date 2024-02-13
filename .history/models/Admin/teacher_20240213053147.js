@@ -11,7 +11,7 @@ const Teachers = new mongoose.Schema(
         TeacherDoB: Date,
         TeacherBloodGroup: String,
         TeacherPhoneNumber: Number,
-        TeacherQualification: String,
+        TeacherQulification: String,
         TeacherAddress: String,
         TeacherCity: String,
         TeacherCountry: String,

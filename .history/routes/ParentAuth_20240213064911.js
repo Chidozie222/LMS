@@ -8,7 +8,7 @@ const ParentAuth = Router()
 require('../models/Admin/Parent')
 
 // setting up the schema for the Student and Parent information backend
-const SAPI = mongoose.model('Parent')
+const SAPI = mongoose.model('')
 
 ParentAuth.post('/ParentAuth', async (req, res) => {
     const { SchoolEmail, ParentEmail, ParentPassword } = req.body
