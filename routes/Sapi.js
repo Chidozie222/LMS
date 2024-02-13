@@ -67,9 +67,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
             } else {
                 await SAPI.create({
                     StudentPicture,
-                    StudentMale,
-                    StudentFemale,
-                    StudentOther,
+                    StudentGender,
                     StudentFirstName,
                     StudentMiddleName,
                     StudentLastName,
@@ -81,9 +79,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                     StudentCountry, 
                     StudentZipCode, 
                     ParentPicture,
-                    ParentMale, 
-                    ParentFemale, 
-                    ParentOther, 
+                    ParentGender, 
                     ParentFirstName, 
                     ParentMiddleName,
                     ParentLastName,
