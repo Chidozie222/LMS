@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 
 const Auth = new mongoose.Schema(
     {
+        adminName: { type:String, require: true },
         SchoolName: { type: String, require: true },
         SchoolPhone: { type: Number, require: true },
         SchoolEmail: { type: String, require: true },
@@ -12,6 +13,7 @@ const Auth = new mongoose.Schema(
         SchoolCountry: { type: String, require: true },
         SchoolWebsite: { type: String, require: true },
         SchoolLogo: { type: String, require: true },
+        Role: { type: String, require: true },
         Password: { type: String, require: true },
     },
     {
