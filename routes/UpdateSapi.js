@@ -15,6 +15,10 @@ require('../models/Admin/student')
 // setting up the schema for the Student and Parent information backend
 const SAPI = mongoose.model('SAPI')
 
+require('../models/Admin/Parent')
+
+const Parent = mongoose.model('Parent')
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/uploads')
@@ -53,9 +57,7 @@ UpdateSapi.post('/UpdateSapi', upload.fields([{ name: 'StudentPicture', maxCount
                         $set:
                         {
                             StudentPicture,
-                            StudentMale, 
-                            StudentFemale, 
-                            StudentOther, 
+                            StudentGender,
                             StudentFirstName, 
                             StudentMiddleName, 
                             StudentLastName, 
@@ -67,9 +69,7 @@ UpdateSapi.post('/UpdateSapi', upload.fields([{ name: 'StudentPicture', maxCount
                             StudentCountry, 
                             StudentZipCode, 
                             ParentPicture,
-                            ParentMale, 
-                            ParentFemale, 
-                            ParentOther, 
+                            ParentGender.
                             ParentFirstName, 
                             ParentMiddleName, 
                             ParentLastName, 
@@ -83,7 +83,27 @@ UpdateSapi.post('/UpdateSapi', upload.fields([{ name: 'StudentPicture', maxCount
                         }
                     },
                     { upsert: true }
-                )
+            )
+
+            await Parent.findOneAndUpdate(
+                { SchoolEmail, ParentUserName },
+                {
+                    $set: 
+                    {
+                    ParentPicture,
+                    ParentGender, 
+                    ParentFirstName, 
+                    ParentMiddleName,
+                    ParentLastName,
+                    ParentBloodGroup,
+                    ParentPhone,
+                    ParentEducation,
+                    ParentProfession,
+                    Class,
+                    SchoolEmail
+                    }
+                }
+            )
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
     } catch (error) {

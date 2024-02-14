@@ -21,6 +21,10 @@ require('../models/Admin/Class')
 // setting up the schema for the Class information backend
 const Classes = mongoose.model('Class')
 
+require('../models/Admin/Parent')
+
+const Parent = mongoose.model('Parent')
+
 // setting up the multer module for it to accept media files
 
 const storage = multer.diskStorage({
@@ -37,7 +41,7 @@ const upload = multer({ storage: storage })
 Sapi.use(express.static('public'))
 
 
-Sapi.post('/student_and_parent', upload.single('Student'), async (req, res) => {
+Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCount: 1 }, { name: 'ParentPicture', maxCount: 1 }]), async (req, res) => {
     const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword, ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession, StudentEmail, StudentUsername, StudentPassword, Class, RollNumber, SchoolEmail } = req.body
     
     let StudentPicture = req.files['StudentPicture'][0].filename
@@ -97,6 +101,23 @@ Sapi.post('/student_and_parent', upload.single('Student'), async (req, res) => {
                     RollNumber,
                     SchoolEmail
                 })
+            
+            await Parent.create({
+                ParentPicture,
+                    ParentGender, 
+                    ParentFirstName, 
+                    ParentMiddleName,
+                    ParentLastName,
+                    ParentUserName,
+                    ParentPassword,
+                    ParentBloodGroup,
+                    ParentEmail,
+                    ParentPhone,
+                    ParentEducation,
+                    ParentProfession,
+                    Class,
+                    SchoolEmail
+            })
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
     } catch (error) {

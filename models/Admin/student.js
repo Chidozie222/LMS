@@ -33,7 +33,7 @@ const SAPI = new mongoose.Schema(
         StudentJoiningDate: { type: Date, default: Date.now },
         Class: String,
         RollNumber: Number,
-        Role: String,
+        Role: { type: String, Default: "student" },
         SchoolEmail: String,
     },
     {

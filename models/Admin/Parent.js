@@ -16,7 +16,7 @@ const Parent = new mongoose.Schema(
         ParentEducation: String,
         ParentProfession: String,
         Class: String,
-        Role: String,
+        Role: { type: String, Default: "parent" },
         SchoolEmail: String,
     },
     {

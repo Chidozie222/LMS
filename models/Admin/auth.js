@@ -13,7 +13,8 @@ const Auth = new mongoose.Schema(
         SchoolCountry: { type: String, require: true },
         SchoolWebsite: { type: String, require: true },
         SchoolLogo: { type: String, require: true },
-        Role: { type: String, require: true },
+        Role: { type: String, 
+        Default: "admin" },
         Password: { type: String, require: true },
     },
     {
