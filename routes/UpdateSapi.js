@@ -69,7 +69,7 @@ UpdateSapi.post('/UpdateSapi', upload.fields([{ name: 'StudentPicture', maxCount
                             StudentCountry, 
                             StudentZipCode, 
                             ParentPicture,
-                            ParentGender.
+                            ParentGender,
                             ParentFirstName, 
                             ParentMiddleName, 
                             ParentLastName, 
