@@ -53,7 +53,7 @@ Teacher.post('/teachers', async (req, res) => {
             //     res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
             // } else {
                 await Teachers.create({
-                    TeacherPicture,
+                    // TeacherPicture,
                     TeacherGender,
                     TeacherFirstName,
                     TeacherMiddleName,
