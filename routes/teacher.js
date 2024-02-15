@@ -81,6 +81,7 @@ Teacher.post('/teachers', upload.single('TeacherPicture'), async (req, res) => {
         }
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
+        console.log(error)
     }
 })
 
