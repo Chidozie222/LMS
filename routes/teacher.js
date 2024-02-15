@@ -35,6 +35,8 @@ Teacher.post('/teachers', upload.single('TeacherPicture'), async (req, res) => {
     
     let TeacherPicture = req.file.filename
 
+    console.log(TeacherPicture)
+
     let TP = req.file.size
 
     let MaxFileSize = 3 * 1024 * 1024 * 1024
