@@ -14,7 +14,7 @@ const SAPI = new mongoose.Schema(
         StudentAddress: String,
         StudentCity: String,
         StudentCountry: String,
-        StudentZipCode: Number,
+        StudentZipCode: String,
         ParentPicture: String,
         ParentGender: String,
         ParentFirstName: String,

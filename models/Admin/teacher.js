@@ -15,7 +15,7 @@ const Teachers = new mongoose.Schema(
         TeacherAddress: String,
         TeacherCity: String,
         TeacherCountry: String,
-        TeacherZipCode: Number,
+        TeacherZipCode: String,
         TeacherEmail: String,
         TeacherUsername: String,
         TeacherPassword: String,
