@@ -35,6 +35,8 @@ Teacher.post('/teachers', upload.single('TeacherPicture'), async (req, res) => {
 
     
     let TeacherPicture = req.file.filename
+console.log(TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours, SchoolEmail, TeacherPicture);
+
 
 
    let TP = req.file.size
