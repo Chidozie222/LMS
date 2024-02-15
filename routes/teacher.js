@@ -35,7 +35,6 @@ Teacher.post('/teachers', upload.single('TeacherPicture'), async (req, res) => {
     
     let TeacherPicture = req.file.filename
 
-    console.log(TeacherPicture)
 
     let TP = req.file.size
 
