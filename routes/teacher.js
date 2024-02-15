@@ -28,18 +28,18 @@ const upload = multer({ storage: storage })
 
 Teacher.use(express.static('public'))
 
-// Post all teachers from database upload.single('TeacherPicture')
+// Post all teachers from database 
 
-Teacher.post('/teachers', async (req, res) => {
+Teacher.post('/teachers', upload.single('TeacherPicture'), async (req, res) => {
     const { TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours, SchoolEmail } = req.body
 
     
-    // let TeacherPicture = req.file.filename
+    let TeacherPicture = req.file.filename
 
 
-   // let TP = req.file.size
+   let TP = req.file.size
 
-    // let MaxFileSize = 3 * 1024 * 1024 * 1024
+    let MaxFileSize = 3 * 1024 * 1024 * 1024
 
 
     try {
@@ -50,11 +50,11 @@ Teacher.post('/teachers', async (req, res) => {
         if (UserBySchoolEmail.length > 0 && UserByTeacherUsername.length > 0 && UserByTeacherEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
         } else {
-            // if (TP > MaxFileSize) {
-            //     res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
-            // } else {
+            if (TP > MaxFileSize) {
+                res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
+            } else {
                 await Teachers.create({
-                    // TeacherPicture,
+                    TeacherPicture,
                     TeacherGender,
                     TeacherFirstName,
                     TeacherMiddleName,
@@ -78,7 +78,7 @@ Teacher.post('/teachers', async (req, res) => {
                     SchoolEmail
                 })
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
-     //        }
+            }
         }
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
