@@ -35,9 +35,6 @@ Teacher.post('/teachers', upload.single('TeacherPicture'), async (req, res) => {
 
     
     let TeacherPicture = req.file.filename
-console.log(TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours, SchoolEmail, TeacherPicture);
-
-
 
    let TP = req.file.size
 
@@ -51,8 +48,7 @@ console.log(TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName,
 
         if (UserBySchoolEmail.length > 0 && UserByTeacherUsername.length > 0 && UserByTeacherEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
-        } else {
-            if (TP > MaxFileSize) {
+        } else if (TP > MaxFileSize) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
             } else {
                 await Teachers.create({
@@ -81,7 +77,6 @@ console.log(TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName,
                 })
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
             }
-        }
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
         console.log(error)
