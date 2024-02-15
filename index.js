@@ -124,15 +124,11 @@ app.use(generalSignIn)
 // connection to the database configuration 
 mongoose.connect(process.env.MONGOURL)
     .then(() => {
-        console.log('connected to database');
     }) 
     .catch((err) => {
-        console.log(err);
     })
     
 
 
 // Port listener 
-app.listen(process.env.PORT, (err, res) => {
-    console.log(`This server is running on port: ${process.env.PORT}`)
-})
+app.listen(process.env.PORT)
