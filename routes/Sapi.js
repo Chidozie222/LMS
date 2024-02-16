@@ -61,6 +61,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
         let UserByParentEmail = await SAPI.find({ SchoolEmail, ParentEmail })
         let UserByStudentEmail = await SAPI.find({ SchoolEmail, StudentEmail })
         let UserByClassCapacity = await Classes.find({ SchoolEmail, Class })
+        console.log(UserByClassCapacity);
 
         let UserByParentEmailforp = await Parent.find({ SchoolEmail, ParentEmail })
 
