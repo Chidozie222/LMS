@@ -43,15 +43,15 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
 
         // Checking for if they are vaild 
         if (adminEmail && adminEmail.Password === Password) {
-            res.send({ status: 'ok', message: 'you have successfully logged in', data: adminEmail })
+            res.send({ status: 'ok', message: 'you have successfully logged in', data: adminEmail, Role: "admin" })
         } else if (teacherEmail && teacherEmail.TeacherPassword === TeacherPassword) {
-            res.send({ status: 'ok', message: 'you have successfully logged in', data: teacherEmail })
+            res.send({ status: 'ok', message: 'you have successfully logged in', data: teacherEmail, Role: "teacher" })
         } else if (parentEmail && parentEmail.ParentPassword === ParentPassword) {
-            res.send({ status: 'ok', message: 'you have successfully logged in', data: parentEmail })
+            res.send({ status: 'ok', message: 'you have successfully logged in', data: parentEmail, Role: "parent" })
         } else if (studentEmail && studentEmail.StudentPassword === StudentPassword) {
-            res.send({ status: 'ok', message: 'you have successfully logged in', data: studentEmail })
+            res.send({ status: 'ok', message: 'you have successfully logged in', data: studentEmail, Role: "student" })
         } else {
-            res.send({ status: 'error', message: 'Login failed' })
+            res.send({ status: 'error', message: 'Email does not exist' })
         }
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
