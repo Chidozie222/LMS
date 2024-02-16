@@ -24,6 +24,7 @@ const Teachers = new mongoose.Schema(
         TeacherCurrentPosition: String,
         TeacherEmployeeCode: String,
         TeacherWorkingHours: String,
+        Role: { type: String, Default: "student" },
         SchoolEmail: String,
     },
     {

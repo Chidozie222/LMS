@@ -42,7 +42,7 @@ Sapi.use(express.static('public'))
 
 
 Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCount: 1 }, { name: 'ParentPicture', maxCount: 1 }]), async (req, res) => {
-    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword, ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession, StudentEmail, StudentUsername, StudentPassword, Class, RollNumber, SchoolEmail } = req.body
+    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword, ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession, StudentEmail, StudentUsername, StudentPassword, Class, RollNumber, Role, SchoolEmail } = req.body
     
     let StudentPicture = req.files['StudentPicture'][0].filename
     let ParentPicture = req.files['ParentPicture'][0].filename
@@ -62,7 +62,6 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
         let UserByStudentEmail = await SAPI.find({ SchoolEmail, StudentEmail })
         let UserByParentEmailforp = await Parent.find({ SchoolEmail, ParentEmail })
          let UserByClassCapacity = await Classes.findOne({ SchoolEmail, Class })
-        console.log(UserByClassCapacity);
 
 
         if (UserByClassCapacity != null) {
@@ -102,6 +101,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                     StudentUsername,
                     StudentPassword,
                     Class,
+                    Role,
                     RollNumber,
                     SchoolEmail
                 })
@@ -123,6 +123,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                     ParentPhone,
                     ParentEducation,
                     ParentProfession,
+                    Role,
                     Class,
                     SchoolEmail
             })
@@ -163,6 +164,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                     StudentUsername,
                     StudentPassword,
                     Class,
+                    Role,
                     RollNumber,
                     SchoolEmail
                 })
@@ -184,6 +186,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                     ParentPhone,
                     ParentEducation,
                     ParentProfession,
+                    Role,
                     Class,
                     SchoolEmail
             })
@@ -192,7 +195,6 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
              }
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
-        console.log(error);
     }
 })
 
