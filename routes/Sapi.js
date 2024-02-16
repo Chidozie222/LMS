@@ -64,7 +64,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
 
         let UserByParentEmailforp = await Parent.find({ SchoolEmail, ParentEmail })
 
-        if (UserByClass.length > UserByClassCapacity[0].ClassCapacity) {
+        if (UserByClass.length > UserByClassCapacity.ClassCapacity) {
             res.send({ status: 'error', message: 'The class is full' })
         } else if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
