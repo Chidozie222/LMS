@@ -12,7 +12,7 @@ require('../models/Admin/SubjectMarkField')
 // setting up the schema for the Subject Mark Field information backend
 const SubjectMarkFields = mongoose.model('SubjectMarkField')
 
-GetSMF.get('/GetSMF/:SchoolEmail', async (req, res) => {
+GetSMF.get('/getSMF/:SchoolEmail', async (req, res) => {
     try {
         let SchoolEmail = req.params.SchoolEmail
 

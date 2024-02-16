@@ -13,7 +13,7 @@ require('../models/Admin/Event')
 const Events = mongoose.model('Event')
 
 
-GetEvent.get('/GetEvent/:SchoolEmail', async (req, res) => {
+GetEvent.get('/getEvent/:SchoolEmail', async (req, res) => {
     const SchoolEmail = req.params.SchoolEmail
     try {
         let UserBySchoolEmail = await Events.find({ SchoolEmail })

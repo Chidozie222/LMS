@@ -14,7 +14,7 @@ require('../models/Admin/subject')
 const Subjects = mongoose.model('Subject')
 
 // getting Subject data
-GetSubject.get('/GetSubject/:SchoolEmail', async (req, res) => {
+GetSubject.get('/getSubject/:SchoolEmail', async (req, res) => {
     try {
         let SchoolEmail = req.params.SchoolEmail
 

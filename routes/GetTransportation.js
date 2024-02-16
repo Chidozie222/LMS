@@ -14,7 +14,7 @@ require('../models/Admin/Transportation')
 const Transportations = mongoose.model('Transportation')
 
 
-GetTransportation.get('/GetTransportation/:SchoolEmail', async (req, res) => {
+GetTransportation.get('/getTransportation/:SchoolEmail', async (req, res) => {
     try {
         let SchoolEmail = req.params.SchoolEmail
 

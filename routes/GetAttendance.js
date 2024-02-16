@@ -14,7 +14,7 @@ const Attendances = mongoose.model('Attendance')
 
 
 // Get Student Attendance
-GetAttendance.get('/GetAttendance/:SchoolEmail/:Class/:Date', async (req, res) => {
+GetAttendance.get('/getAttendance/:SchoolEmail/:Class/:Date', async (req, res) => {
     const { SchoolEmail, Class, Date } = req.params
 
     let UserByClassByDate = await Attendances.find({ SchoolEmail, Class, Date })

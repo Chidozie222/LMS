@@ -14,7 +14,7 @@ const Teachers = mongoose.model('Teachers')
 
 
 // get teacher data
-GetTeacher.get('/GetTeacher/:SchoolEmail', async (req, res) => {
+GetTeacher.get('/getTeacher/:SchoolEmail', async (req, res) => {
     try {
         let SchoolEmail = req.params.SchoolEmail
 

@@ -9,7 +9,7 @@ require('../models/Admin/student')
 // setting up the schema for the Student and Parent information backend
 const SAPI = mongoose.model('SAPI')
 
-GetSapi.get('/GetSapi/:SchoolEmail', async (req, res) => {
+GetSapi.get('/getSapi/:SchoolEmail', async (req, res) => {
     try {
         let SchoolEmail = req.params.SchoolEmail
 

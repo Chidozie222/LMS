@@ -13,7 +13,7 @@ require('../models/Admin/Examination')
 const Examinations = mongoose.model('Examination')
 
 
-GetExamination.get('/GetExamination/:SchoolEmail', async (req, res) => {
+GetExamination.get('/getExamination/:SchoolEmail', async (req, res) => {
     try {
         let SchoolEmail = req.params.SchoolEmail
 

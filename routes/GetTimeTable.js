@@ -14,7 +14,7 @@ require('../models/Admin/TimeTable')
 const TimeTables = mongoose.model('TimeTable')
 
 // getting TimeTable data
-GetTimeTable.get('/GetTimeTable/:SchoolEmail', async (req, res) => {
+GetTimeTable.get('/getTimeTable/:SchoolEmail', async (req, res) => {
     try {
         let SchoolEmail = req.params.SchoolEmail
 

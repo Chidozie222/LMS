@@ -13,7 +13,7 @@ const Classes = mongoose.model('Class')
 
 
 // get Class data
-GetClass.get('/GetClass/:SchoolEmail', async (req, res) => {
+GetClass.get('/getClass/:SchoolEmail', async (req, res) => {
     try {
         let SchoolEmail = req.params.SchoolEmail
 

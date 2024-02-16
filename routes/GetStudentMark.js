@@ -14,7 +14,7 @@ const StudentMarks = mongoose.model('StudentMark')
 
 
 // get Student marks data
-GetStudentMark.get('/GetStudentMark/:SchoolEmail/:Class/:Examination/:Subject', async (req, res) => {
+GetStudentMark.get('/getStudentMark/:SchoolEmail/:Class/:Examination/:Subject', async (req, res) => {
     try {
         const { SchoolEmail, Class, Examination, Subject } = req.params
 

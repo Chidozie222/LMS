@@ -13,7 +13,7 @@ require('../models/Admin/Notify')
 // setting up the schema for the Notify information backend
 const Notifies = mongoose.model('Notify')
 
-GetNotify.get('/GetNotify/:SchoolEmail', async (req, res) => {
+GetNotify.get('/getNotify/:SchoolEmail', async (req, res) => {
     const SchoolEmail = req.params.SchoolEmail
     try {
         let UserBySchoolEmail = await Notifies.find({ SchoolEmail })
