@@ -32,9 +32,11 @@ const Parent = mongoose.model('Parent')
 
 
 generalSignIn.post('/GeneralSignIn', async(req, res) => {
-    const { SchoolEmail, Password, TeacherEmail, TeacherPassword, ParentEmail, ParentPassword, StudentEmail, StudentPassword } = req.body
+    const { Email, password } = req.body
 
     try {
+        let SchoolEmail = TeacherEmail = ParentEmail = StudentEmail = Email
+        let password = TeacherPassword = ParentPassword = StudentPassword = password
         // checking if the email exists
         let adminEmail = await Auth.findOne({ SchoolEmail })
         let teacherEmail = await Teachers.findOne({ SchoolEmail, TeacherEmail }) 
