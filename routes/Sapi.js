@@ -61,11 +61,72 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
         let UserByParentEmail = await SAPI.find({ SchoolEmail, ParentEmail })
         let UserByStudentEmail = await SAPI.find({ SchoolEmail, StudentEmail })
         let UserByClassCapacity = await Classes.find({ SchoolEmail, Class })
-        console.log(UserByClassCapacity);
-
         let UserByParentEmailforp = await Parent.find({ SchoolEmail, ParentEmail })
 
-        if (UserByClass.length > UserByClassCapacity.ClassCapacity) {
+        if (!UserByClassCapacity) {
+            if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
+            res.send({status: 'error', message: 'User Already exists'})
+        } else if (SP > MaxFileSize && PP > MaxFileSize) {
+                res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
+            } else {
+                await SAPI.create({
+                    StudentPicture,
+                    StudentGender,
+                    StudentFirstName,
+                    StudentMiddleName,
+                    StudentLastName,
+                    StudentDoB,
+                    StudentBloodGroup,
+                    StudentPhoneNumber,
+                    StudentAddress,
+                    StudentCity,
+                    StudentCountry, 
+                    StudentZipCode, 
+                    ParentPicture,
+                    ParentGender, 
+                    ParentFirstName, 
+                    ParentMiddleName,
+                    ParentLastName,
+                    ParentUserName,
+                    ParentPassword,
+                    ParentBloodGroup,
+                    ParentEmail,
+                    ParentPhone,
+                    ParentEducation,
+                    ParentProfession,
+                    StudentEmail,
+                    StudentUsername,
+                    StudentPassword,
+                    Class,
+                    RollNumber,
+                    SchoolEmail
+                })
+
+
+                if (UserByParentEmailforp) {
+                    return "successful"
+                } else {
+                    await Parent.create({
+                    ParentPicture,
+                    ParentGender, 
+                    ParentFirstName, 
+                    ParentMiddleName,
+                    ParentLastName,
+                    ParentUserName,
+                    ParentPassword,
+                    ParentBloodGroup,
+                    ParentEmail,
+                    ParentPhone,
+                    ParentEducation,
+                    ParentProfession,
+                    Class,
+                    SchoolEmail
+            })
+                }
+                res.send({status: 'ok', message: 'Data uploaded successfully'})
+             }
+        } else {
+            if (UserByClass.length > UserByClassCapacity[0].ClassCapacity) {
             res.send({ status: 'error', message: 'The class is full' })
         } else if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
@@ -128,6 +189,8 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                 }
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
+        }
+        
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
         console.log(error);
