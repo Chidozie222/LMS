@@ -129,8 +129,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                 }
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
-        } else {
-             if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
+        } else if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
         } else if (SP > MaxFileSize && PP > MaxFileSize) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
@@ -191,8 +190,6 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                 }
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
-        }
-        
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
         console.log(error);
