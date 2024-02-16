@@ -129,6 +129,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
              }
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
+        console.log(error);
     }
 })
 
