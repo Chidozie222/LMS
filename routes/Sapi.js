@@ -61,10 +61,14 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
         let UserByParentEmail = await SAPI.find({ SchoolEmail, ParentEmail })
         let UserByStudentEmail = await SAPI.find({ SchoolEmail, StudentEmail })
         let UserByParentEmailforp = await Parent.find({ SchoolEmail, ParentEmail })
+         let UserByClassCapacity = await Classes.findOne({ SchoolEmail, Class })
+        console.log(UserByClassCapacity);
 
 
-        if (!UserByClassCapacity) {
-            if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
+        if (UserByClassCapacity.) {
+            if (UserByClass.length > UserByClassCapacity[0].ClassCapacity) {
+            res.send({ status: 'error', message: 'The class is full' })
+        } else if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
         } else if (SP > MaxFileSize && PP > MaxFileSize) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
@@ -126,11 +130,7 @@ Sapi.post('/student_and_parent', upload.fields([{ name: 'StudentPicture', maxCou
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
         } else {
-        let UserByClassCapacity = await Classes.find({ SchoolEmail, Class })
-        console.log(UserByClassCapacity);
-            if (UserByClass.length > UserByClassCapacity[0].ClassCapacity) {
-            res.send({ status: 'error', message: 'The class is full' })
-        } else if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
+             if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
         } else if (SP > MaxFileSize && PP > MaxFileSize) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
