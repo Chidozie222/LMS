@@ -55,7 +55,7 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
 
         console.log(parentEmail);
 
-        // Checking for if they are vaild 
+        // Checking for if they are valid 
         if (adminEmail && adminEmail.Password === Password) {
             res.send({ status: 'ok', message: 'you have successfully logged in', data: adminEmail, Role: "admin" })
         } else if (teacherEmail && teacherEmail.TeacherPassword === TeacherPassword) {
