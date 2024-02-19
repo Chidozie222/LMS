@@ -14,6 +14,7 @@ const Classes = mongoose.model('Class')
 
 Class.post('/Class', async (req, res) => {
     const { Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail } = req.body
+    console.log(Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail);
     try {
         let User = await Classes.find({ SchoolEmail, Class })
         if (User && User.length > 0) {
