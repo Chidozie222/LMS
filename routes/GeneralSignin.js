@@ -53,7 +53,7 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
         let parentEmail = await Parent.findOne({ SchoolEmail, ParentEmail })
         let studentEmail = await SAPI.findOne({ SchoolEmail, StudentEmail })
 
-        console.log(parentEmail);
+        console.log(parentEmail, adminEmail, teacherEmail, studentEmail);
 
         // Checking for if they are valid 
         if (adminEmail && adminEmail.Password === Password) {
