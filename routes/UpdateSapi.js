@@ -73,7 +73,7 @@ UpdateSapi.post('/UpdateSapi', upload.single('StudentPicture'), async (req, res)
                             StudentCity, 
                             StudentCountry, 
                             StudentZipCode, 
-                            ParentPhone,
+                            ParentID,
                             Role,
                             Class, 
                             RollNumber, 
