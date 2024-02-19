@@ -30,7 +30,7 @@ const upload = multer({ storage: storage })
 parent.use(express.static('public'))
 
 
-parent.post('post_parent', upload.single('ParentPicture'), async (req, res) => {
+parent.post('/post_parent', upload.single('ParentPicture'), async (req, res) => {
     const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword, ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession, Role, SchoolEmail } = req.body;
 
     let ParentPicture = req.file.filename;
