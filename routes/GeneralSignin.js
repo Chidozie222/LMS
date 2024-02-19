@@ -44,6 +44,8 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
         let ParentPassword = password;
         let StudentPassword = password
 
+        console.log(Email, password);
+
         console.log(SchoolEmail, TeacherEmail, ParentEmail, StudentEmail, Password, TeacherPassword, ParentPassword, StudentPassword);
         // checking if the email exists
         let adminEmail = await Auth.findOne({ SchoolEmail })
