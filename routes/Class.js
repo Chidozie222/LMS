@@ -17,7 +17,9 @@ Class.post('/Class', async (req, res) => {
     console.log(Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail);
     try {
         let User = await Classes.find({ SchoolEmail, Class })
-        if (User && User.length > 0) {
+        if (!Class && !ClassNumber && !ClassCapacity && !ClassTeacher && !ClassStartingOn && !ClassEndingOn && !ClassLocation && !ClassFeeType && !SchoolEmail) { 
+            res.status(400).send({ message: "A value in not present" })
+        } else if (User && User.length > 0) {
             res.send({ status: 'error', message: 'Sorry but User already exist' })
         } else {
             await Classes.create({
