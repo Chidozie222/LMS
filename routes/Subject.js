@@ -21,7 +21,9 @@ Subject.post('/Subject', async (req, res) => {
         let UserBySubjectName = await Subjects.find({ SchoolEmail, SubjectName })
         let UserBySubjectCode = await Subjects.find({ SchoolEmail, SubjectCode })
         
-        if (UserBySubjectName.length > 0 && UserBySubjectCode.length > 0) {
+        if (!Class && !SubjectName && !SubjectCode && !SubjectTeacher && !BookName && !SchoolEmail) { 
+            res.status(400).send({ message: "A value is not found" })
+        } else if (UserBySubjectName.length > 0 && UserBySubjectCode.length > 0) {
             res.send({ status: 'error', message: 'User already exist' })
         } else {
             await Subjects.create({

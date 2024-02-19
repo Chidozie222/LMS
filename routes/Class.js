@@ -38,7 +38,7 @@ Class.post('/Class', async (req, res) => {
         
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
-        console.log(error)
+        console.log(erro)
     }
 })
 
