@@ -38,7 +38,7 @@ Sapi.use(express.static('public'))
 
 
 Sapi.post('/student_and_parent', upload.single('StudentPicture'), async (req, res) => {
-    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, StudentEmail, StudentUsername, StudentPassword, Class, RollNumber, ParentID, Role, SchoolEmail } = req.body
+    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, StudentEmail, StudentUsername, StudentPassword, Class, RollNumber, ParentPhone, Role, SchoolEmail } = req.body
     
     let StudentPicture = req.file.filename
 
@@ -78,7 +78,7 @@ Sapi.post('/student_and_parent', upload.single('StudentPicture'), async (req, re
                     StudentCity,
                     StudentCountry, 
                     StudentZipCode, 
-                    ParentID,
+                    ParentPhone,
                     StudentEmail,
                     StudentUsername,
                     StudentPassword,
@@ -107,7 +107,7 @@ Sapi.post('/student_and_parent', upload.single('StudentPicture'), async (req, re
                     StudentCity,
                     StudentCountry, 
                     StudentZipCode, 
-                    ParentID,
+                    ParentPhone,
                     StudentEmail,
                     StudentUsername,
                     StudentPassword,
