@@ -15,9 +15,11 @@ require('../models/Admin/student')
 // setting up the schema for the Student and Parent information backend
 const SAPI = mongoose.model('SAPI')
 
-require('../models/Admin/Parent')
+// calling the schema 
+require('../models/Admin/Class')
 
-const Parent = mongoose.model('Parent')
+// setting up the schema for the Class information backend
+const Classes = mongoose.model('Class')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -34,22 +36,25 @@ UpdateSapi.use(express.static('public'))
 
 // Post all teachers from database
 
-UpdateSapi.post('/UpdateSapi', upload.fields([{ name: 'StudentPicture', maxCount: 1 }, { name: 'ParentPicture', maxCount: 1 }]), async (req, res) => {
-    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession, Class, RollNumber, StudentUsername, SchoolEmail } = req.body
+UpdateSapi.post('/UpdateSapi', upload.single('StudentPicture'), async (req, res) => {
+    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentID, Role, Class, RollNumber, StudentUsername, SchoolEmail } = req.body
     
-    let StudentPicture = req.files['StudentPicture'][0].filename
-    let ParentPicture = req.files['ParentPicture'][0].filename
+    let StudentPicture = req.file.filename
 
-    let SP = req.files['StudentPicture'][0].size
-    let PP = req.files['ParentPicture'][0].size
+    let SP = req.file.size
 
     let MaxFileSize = 3 * 1024 * 1024 * 1024
+
+    let UserByClassCapacity = await Classes.findOne({ SchoolEmail, Class })
+    let userByClass = await SAPI.find({ SchoolEmail, Class })
 
 
     try {
 
-        if (SP > MaxFileSize && PP > MaxFileSize) {
+        if ( MaxFileSize >= SP) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
+            } else if (userByClass.length > UserByClassCapacity.ClassCapacity) {
+                res.send({ message: `The Class is full` })
             } else {
             await SAPI.findOneAndUpdate(
                     {SchoolEmail, StudentUsername},
@@ -68,41 +73,14 @@ UpdateSapi.post('/UpdateSapi', upload.fields([{ name: 'StudentPicture', maxCount
                             StudentCity, 
                             StudentCountry, 
                             StudentZipCode, 
-                            ParentPicture,
-                            ParentGender,
-                            ParentFirstName, 
-                            ParentMiddleName, 
-                            ParentLastName, 
-                            ParentBloodGroup, 
-                            ParentPhone, 
-                            ParentEducation, 
-                            ParentProfession, 
+                            ParentID,
+                            Role,
                             Class, 
                             RollNumber, 
                             SchoolEmail
                         }
                     },
                     { upsert: true }
-            )
-
-            await Parent.findOneAndUpdate(
-                { SchoolEmail, ParentUserName },
-                {
-                    $set: 
-                    {
-                    ParentPicture,
-                    ParentGender, 
-                    ParentFirstName, 
-                    ParentMiddleName,
-                    ParentLastName,
-                    ParentBloodGroup,
-                    ParentPhone,
-                    ParentEducation,
-                    ParentProfession,
-                    Class,
-                    SchoolEmail
-                    }
-                }
             )
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }

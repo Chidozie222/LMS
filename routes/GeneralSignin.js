@@ -36,7 +36,7 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
 
     try {
         let SchoolEmail = TeacherEmail = ParentEmail = StudentEmail = Email
-        let password = TeacherPassword = ParentPassword = StudentPassword = password
+        let Password = TeacherPassword = ParentPassword = StudentPassword = password
         // checking if the email exists
         let adminEmail = await Auth.findOne({ SchoolEmail })
         let teacherEmail = await Teachers.findOne({ SchoolEmail, TeacherEmail }) 
