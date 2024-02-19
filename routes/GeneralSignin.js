@@ -53,6 +53,8 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
         let parentEmail = await Parent.findOne({ SchoolEmail, ParentEmail })
         let studentEmail = await SAPI.findOne({ SchoolEmail, StudentEmail })
 
+        console.log(parentEmail);
+
         // Checking for if they are vaild 
         if (adminEmail && adminEmail.Password === Password) {
             res.send({ status: 'ok', message: 'you have successfully logged in', data: adminEmail, Role: "admin" })
