@@ -51,8 +51,6 @@ Sapi.post('/student_and_parent', upload.single('StudentPicture'), async (req, re
         let UserByClass = await SAPI.find({ SchoolEmail, Class })
         let UserBySchoolEmail = await SAPI.find({ SchoolEmail, StudentFirstName })
         let UserByStudentUsername = await SAPI.find({ SchoolEmail, StudentUsername })
-        let UserByParentUserName = await SAPI.find({ SchoolEmail, ParentUserName })
-        let UserByParentEmail = await SAPI.find({ SchoolEmail, ParentEmail })
         let UserByStudentEmail = await SAPI.find({ SchoolEmail, StudentEmail })
          let UserByClassCapacity = await Classes.findOne({ SchoolEmail, Class })
 
@@ -60,7 +58,7 @@ Sapi.post('/student_and_parent', upload.single('StudentPicture'), async (req, re
         if (UserByClassCapacity != null) {
             if (UserByClass.length > UserByClassCapacity.ClassCapacity) {
             res.send({ status: 'error', message: 'The class is full' })
-        } else if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByParentUserName.length > 0 && UserByParentEmail.length > 0 && UserByStudentEmail.length > 0) {
+        } else if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByStudentEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
         } else if (MaxFileSize >= SP) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
