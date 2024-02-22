@@ -60,7 +60,7 @@ Sapi.post('/student_and_parent', upload.single('StudentPicture'), async (req, re
             res.send({ status: 'error', message: 'The class is full' })
         } else if (UserBySchoolEmail.length > 0 && UserByStudentUsername.length > 0 && UserByStudentEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
-        } else if (MaxFileSize >= SP) {
+        } else if (MaxFileSize <= SP) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
             } else {
                 await SAPI.create({
