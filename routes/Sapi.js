@@ -118,7 +118,6 @@ Sapi.post('/student_and_parent', upload.single('StudentPicture'), async (req, re
              }
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
-        console.log(error)
     }
 })
 
