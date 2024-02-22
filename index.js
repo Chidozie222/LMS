@@ -58,6 +58,7 @@ const StudentFeatureTimeTable = require('./routes/StudentfeatureTimeTable')
 const generalSignIn = require('./routes/GeneralSignin')
 const parent = require('./routes/parent')
 const updateParent = require('./routes/updateParent')
+const getParent = require('./routes/getParent')
 require('dotenv').config()
 
 // initialing the express app
@@ -125,6 +126,7 @@ app.use(StudentFeatureTimeTable)
 app.use(generalSignIn)
 app.use(parent)
 app.use(updateParent)
+app.use(getParent)
 // connection to the database configuration 
 mongoose.connect(process.env.MONGOURL)
     .then(() => {
