@@ -59,6 +59,7 @@ const generalSignIn = require('./routes/GeneralSignin')
 const parent = require('./routes/parent')
 const updateParent = require('./routes/updateParent')
 const getParent = require('./routes/getParent')
+const getParentID = require('./routes/getParentByID')
 require('dotenv').config()
 
 // initialing the express app
@@ -127,6 +128,7 @@ app.use(generalSignIn)
 app.use(parent)
 app.use(updateParent)
 app.use(getParent)
+app.use(getParentID)
 // connection to the database configuration 
 mongoose.connect(process.env.MONGOURL)
     .then(() => {
