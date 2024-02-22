@@ -1,19 +1,19 @@
 const { Router } = require("express");
 const mongoose = require("mongoose")
 
-let getParentID = Router()
+let studentParentID = Router()
 
 // calling the schema 
-require('../models/Admin/Parent')
+require('../models/Admin/student')
 
 // setting up the schema for the Student and Parent information backend
-const Parent = mongoose.model('Parent')
+const SAPI = mongoose.model('SAPI')
 
-getParentID.get('/getParentID/:_id', async (req, res) => {
+studentParentID.get('/studentParentID/:_id', async (req, res) => {
     try {
-        let _id = req.params._id
+        let ParentID = req.params._id
 
-        let user = await Parent.findById({ _id })
+        let user = await SAPI.find({ ParentID })
 
         if (user && user.length > 0) {
             res.send({status: 'ok', data: user})
@@ -25,4 +25,4 @@ getParentID.get('/getParentID/:_id', async (req, res) => {
     }
 })
 
-module.exports = getParentID
+module.exports = studentParentID
