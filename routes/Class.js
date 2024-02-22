@@ -12,7 +12,7 @@ require('../models/Admin/Class')
 // setting up the schema for the Class information backend
 const Classes = mongoose.model('Class')
 
-classRoom.get('/Class', async (req, res) => {
+classRoom.post('/Class', async (req, res) => {
     const { Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail } = req.body
     console.log(Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail);
     try {
