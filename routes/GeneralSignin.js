@@ -46,9 +46,9 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
 
         // checking if the email exists
         let adminEmail = await Auth.findOne({ SchoolEmail })
-        let teacherEmail = await Teachers.findOne({ SchoolEmail, TeacherEmail }) 
-        let parentEmail = await Parent.findOne({ SchoolEmail, ParentEmail })
-        let studentEmail = await SAPI.findOne({ SchoolEmail, StudentEmail })
+        let teacherEmail = await Teachers.findOne({ TeacherEmail }) 
+        let parentEmail = await Parent.findOne({ ParentEmail })
+        let studentEmail = await SAPI.findOne({ StudentEmail })
 
 
         // Checking for if they are valid 
