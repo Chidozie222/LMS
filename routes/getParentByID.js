@@ -9,9 +9,9 @@ const parentModel = mongoose.model('Parent')
 
 getParentID.get('/getParentID/:_id', async (req, res) => {
     try {
-        let _id = req.params._id
+        let id = req.params._id
 
-        let user = await parentModel.findById({ _id: _id })
+        let user = await parentModel.findById({ _id: id })
 
         if (user && user.length > 0) {
             res.send({status: 'ok', data: user})
