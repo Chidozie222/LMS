@@ -36,6 +36,7 @@ Subject.post('/Subject', async (req, res) => {
         }
     } catch (error) {
         res.send({ status: 'error', message: error.message });
+        console.log(error);
     }
 });
 
