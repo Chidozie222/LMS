@@ -11,7 +11,7 @@ getParentID.get('/getParentID/:_id', async (req, res) => {
     try {
         let id = req.params._id
 
-        let user = await parentModel.findById({ _id: id })
+        let user = await parentModel.findOne({ _id: id })
 
         if (user && user.length > 0) {
             res.send({status: 'ok', data: user})
