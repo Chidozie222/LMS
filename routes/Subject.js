@@ -15,14 +15,19 @@ const Subjects = mongoose.model('Subject')
 
 // storing subject data in the database
 Subject.post('/Subject', async (req, res) => {
-    const { subjects } = req.body;
+    const { subjects, Class, SchoolEmail } = req.body;
 
     try {
         if (!subjects || subjects.length === 0) {
             res.status(400).send({ message: "Subjects array is empty or not provided" });
         } else {
-            const promises = subjects.map(subject => {
-                return Subjects.findOne({ SchoolEmail: subject.SchoolEmail, SubjectCode: subject.SubjectCode }).then(existingSubject => {
+            // Add SchoolEmail and Class to each subject object
+            const updatedSubjects = subjects.map(subject => {
+                return { ...subject, SchoolEmail, Class };
+            });
+
+            const promises = updatedSubjects.map(subject => {
+                return Subjects.findOne({ SchoolEmail: SchoolEmail, SubjectCode: subject.SubjectCode }).then(existingSubject => {
                     if (existingSubject) {
                         throw new Error(`Subject with name ${subject.SubjectName} already exists`);
                     }
@@ -31,7 +36,7 @@ Subject.post('/Subject', async (req, res) => {
 
             await Promise.all(promises);
 
-            const result = await Subjects.insertMany(subjects);
+            const result = await Subjects.insertMany(updatedSubjects);
             res.send({ status: 'ok', message: 'Subjects successfully uploaded', data: result });
         }
     } catch (error) {
