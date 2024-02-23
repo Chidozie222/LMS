@@ -15,7 +15,7 @@ const Subjects = mongoose.model('Subject')
 
 // storing subject data in the database
 Subject.post('/Subject', async (req, res) => {
-    const { subjects, Class, SchoolEmail } = req.body;
+    const { subjects, SchoolEmail } = req.body;
 
     try {
         if (!subjects || subjects.length === 0) {
@@ -31,7 +31,7 @@ Subject.post('/Subject', async (req, res) => {
 
             await Promise.all(promises);
 
-            const result = await Subjects.insertMany(subjects, Class, SchoolEmail);
+            const result = await Subjects.insertMany(subjects, SchoolEmail);
             res.send({ status: 'ok', message: 'Subjects successfully uploaded', data: result });
         }
     } catch (error) {
