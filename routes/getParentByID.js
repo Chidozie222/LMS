@@ -3,17 +3,15 @@ const mongoose = require("mongoose")
 
 let getParentID = Router()
 
-// calling the schema 
 require('../models/Admin/Parent')
 
-// setting up the schema for the Student and Parent information backend
-const Parent = mongoose.model('Parent')
+const parentModel = mongoose.model('Parent')
 
 getParentID.get('/getParentID/:_id', async (req, res) => {
     try {
         let _id = req.params._id
 
-        let user = await Parent.findById({ _id })
+        let user = await parentModel.findById({ _id })
 
         if (user && user.length > 0) {
             res.send({status: 'ok', data: user})
