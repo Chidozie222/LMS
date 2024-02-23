@@ -14,7 +14,7 @@ getParentID.get('/getParentID/:_id', async (req, res) => {
         let user = await parentModel.findById({ _id: id })
         console.log(user);
 
-        if (user && user.length > 0) {
+        if (user) {
             res.send({status: 'ok', data: user})
         } else {
             res.send({status: 'pending', message: 'No data found', data: []})
