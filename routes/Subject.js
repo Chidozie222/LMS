@@ -22,7 +22,7 @@ Subject.post('/Subject', async (req, res) => {
             res.status(400).send({ message: "Subjects array is empty or not provided" });
         } else {
             const promises = subjects.map(subject => {
-                return Subjects.findOne({ SchoolEmail: SchoolEmail, SubjectName: subject.SubjectName }).then(existingSubject => {
+                return Subjects.findOne({ SchoolEmail: SchoolEmail, SubjectCode: subject.SubjectCode }).then(existingSubject => {
                     if (existingSubject) {
                         throw new Error(`Subject with name ${subject.SubjectName} already exists`);
                     }
