@@ -14,7 +14,6 @@ const Classes = mongoose.model('Class')
 
 classRoom.post('/Class', async (req, res) => {
     const { Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail } = req.body
-    console.log(Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail);
     try {
         let User = await Classes.find({ SchoolEmail, Class })
         if (!Class && !ClassNumber && !ClassCapacity && !ClassTeacher && !ClassStartingOn && !ClassEndingOn && !ClassLocation && !ClassFeeType && !SchoolEmail) { 
@@ -38,7 +37,6 @@ classRoom.post('/Class', async (req, res) => {
         
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
-        console.log(error)
     }
 })
 

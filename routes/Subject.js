@@ -15,30 +15,28 @@ const Subjects = mongoose.model('Subject')
 
 // storing subject data in the database
 Subject.post('/Subject', async (req, res) => {
-    const { Class, SubjectName, SubjectCode, SubjectTeacher, BookName, SchoolEmail } = req.body
+    const { subjects } = req.body;
 
     try {
-        let UserBySubjectName = await Subjects.find({ SchoolEmail, SubjectName })
-        let UserBySubjectCode = await Subjects.find({ SchoolEmail, SubjectCode })
-        
-        if (!Class && !SubjectName && !SubjectCode && !SubjectTeacher && !BookName && !SchoolEmail) { 
-            res.status(400).send({ message: "A value is not found" })
-        } else if (UserBySubjectName.length > 0 && UserBySubjectCode.length > 0) {
-            res.send({ status: 'error', message: 'User already exist' })
+        if (!subjects || subjects.length === 0) {
+            res.status(400).send({ message: "Subjects array is empty or not provided" });
         } else {
-            await Subjects.create({
-                Class, 
-                SubjectName, 
-                SubjectCode, 
-                SubjectTeacher, 
-                BookName, 
-                SchoolEmail
-            })
-            res.send({ status: 'ok', message: 'Subject successfully Upload' })
+            const promises = subjects.map(subject => {
+                return Subjects.findOne({ SchoolEmail: subject.SchoolEmail, SubjectName: subject.SubjectName }).then(existingSubject => {
+                    if (existingSubject) {
+                        throw new Error(`Subject with name ${subject.SubjectName} already exists for email ${subject.SchoolEmail}`);
+                    }
+                });
+            });
+
+            await Promise.all(promises);
+
+            const result = await Subjects.insertMany(subjects);
+            res.send({ status: 'ok', message: 'Subjects successfully uploaded', data: result });
         }
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message });
     }
-})
+});
 
 module.exports = Subject

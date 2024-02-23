@@ -12,7 +12,6 @@ getParentID.get('/getParentID/:_id', async (req, res) => {
         let id = req.params._id
 
         let user = await parentModel.findById({ _id: id })
-        console.log(user);
 
         if (user) {
             res.send({status: 'ok', data: user})
