@@ -29,7 +29,7 @@ Subject.post('/Subject', async (req, res) => {
             const promises = updatedSubjects.map(subject => {
                 return Subjects.findOne({ SchoolEmail: SchoolEmail, SubjectCode: subject.SubjectCode }).then(existingSubject => {
                     if (existingSubject) {
-                        throw new Error(`Subject with name ${subject.SubjectName} already exists`);
+                        throw new Error(`Subject with name ${subject.SubjectCode} already exists`);
                     }
                 });
             });
