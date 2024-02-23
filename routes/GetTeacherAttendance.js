@@ -23,7 +23,7 @@ GetTeacherAttendance.get('/getTeacherAttendance/:SchoolEmail/:Date', async (req,
         if (UserByDate.length > 0) {
             res.send({ status: 'ok', data: UserByDate })
         } else {
-            res.send({ status: 'pending', message: 'No Attendance found' })
+            res.send({ status: 'pending', message: 'No Attendance found', data: [] })
         }
     } catch (error) {
         res.send({ status: 'error', message: 'error in the server' })

@@ -21,7 +21,7 @@ GetNotify.get('/getNotify/:SchoolEmail', async (req, res) => {
         if (UserBySchoolEmail.length > 0) {
             res.send({ status: 'ok', data: UserBySchoolEmail })
         } else {
-            res.send({ status: 'pending', message: 'No Data Found' })
+            res.send({ status: 'pending', message: 'No Data Found', data: [] })
         }
     } catch (error) {
         res.send({ status: 'error', message: 'error in the server' })

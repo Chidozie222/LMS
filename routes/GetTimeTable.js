@@ -23,7 +23,7 @@ GetTimeTable.get('/getTimeTable/:SchoolEmail', async (req, res) => {
         if (user && user.length > 0) {
             res.send({status: 'ok', data: user})
         } else {
-            res.send({status: 'pending', message: 'No data found'})
+            res.send({status: 'pending', message: 'No data found', data: []})
         }
     } catch (error) {
         res.send({statue: 'error', message: 'error in the server'})

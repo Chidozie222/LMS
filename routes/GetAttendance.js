@@ -23,7 +23,7 @@ GetAttendance.get('/getAttendance/:SchoolEmail/:Class/:Date', async (req, res) =
         if (UserByClassByDate.length > 0) {
             res.send({ status: 'ok', data: UserByClassByDate })
         } else {
-            res.send({ status: 'pending', message: 'No Attendance found' })
+            res.send({ status: 'pending', message: 'No Attendance found', data: [] })
         }
     } catch (error) {
         res.send({ status: 'error', message: 'error in the server' })
