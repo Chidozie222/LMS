@@ -15,7 +15,7 @@ const Attendances = mongoose.model('Attendance')
 
 
 Attendance.post('/Attendance', async (req, res) => {
-    const { Class, Date, RollNumber, StudentFirstName, StudentLastName, Absent, Reason, SchoolEmail } = req.body
+    const { Class, Date, SchoolEmail } = req.body
     const data = req.body;
 
     let UserByClassAndDate = await Attendances.find({ SchoolEmail, Class, Date })

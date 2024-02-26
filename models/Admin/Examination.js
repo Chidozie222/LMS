@@ -7,7 +7,7 @@ const Examination = new mongoose.Schema(
         Examination: String,
         ExaminationStartDate: Date,
         ExaminationEndDate: Date,
-        Subject: String,
+        Subject: Array,
         SchoolEmail: String,
     },
     {
