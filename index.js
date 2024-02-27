@@ -1,4 +1,4 @@
-// setting up models 
+// setting up models yu
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
@@ -61,6 +61,7 @@ const updateParent = require('./routes/updateParent')
 const getParent = require('./routes/getParent')
 const getParentID = require('./routes/getParentByID')
 const studentParentID = require('./routes/studentParentID')
+const getAllUsers = require('./routes/getAllUsers')
 require('dotenv').config()
 
 // initialing the express app
@@ -131,6 +132,7 @@ app.use(updateParent)
 app.use(getParent)
 app.use(getParentID)
 app.use(studentParentID)
+app.use(getAllUsers)
 // connection to the database configuration 
 mongoose.connect(process.env.MONGOURL)
     .then(() => {
