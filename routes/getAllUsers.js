@@ -5,8 +5,6 @@ const mongoose = require('mongoose');
 const getAllUsers = Router()
 
 
-require('../models/Admin/auth')
-const Auth = mongoose.model('Auth')
 require('../models/Admin/teacher')
 const Teachers = mongoose.model('Teachers')
 require('../models/Admin/student')
@@ -21,11 +19,10 @@ getAllUsers.get('/getAllUsers/:SchoolEmail', async (req, res) => {
         if (!SchoolEmail) {
             res.status(400).send({ message: 'School email is not defined' })
         } else {
-           let firstArray = await Auth.find({ SchoolEmail })
             let SecondArray = await Teachers.find({ SchoolEmail })
             let thirdArray = await SAPI.find({ SchoolEmail })
             let forthArray = await parentModel.find({ SchoolEmail })
-            const mergedArray = [...firstArray, ...SecondArray, ...thirdArray, ...forthArray]
+            const mergedArray = [...SecondArray, ...thirdArray, ...forthArray]
             res.status(200).send({ data: mergedArray })
         }
     } catch (error) {
