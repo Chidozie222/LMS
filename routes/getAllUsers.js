@@ -21,7 +21,7 @@ getAllUsers.get('/getAllUsers/:SchoolEmail', async (req, res) => {
         if (!SchoolEmail) {
             res.status(400).send({ message: 'School email is not defined' })
         } else {
-            let firstArray = await Auth.find({ SchoolEmail })
+           let firstArray = await Auth.find({ SchoolEmail })
             let SecondArray = await Teachers.find({ SchoolEmail })
             let thirdArray = await SAPI.find({ SchoolEmail })
             let forthArray = await parentModel.find({ SchoolEmail })
