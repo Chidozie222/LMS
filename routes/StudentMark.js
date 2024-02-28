@@ -28,7 +28,7 @@ StudentMark.post('/StudentMark', async(req, res) => {
             const newStudentMark = addValuesToStudentMarkArray.map(studentMark => {
                 return StudentMarks.findOne({ SchoolEmail, Class, Examination, Subject, StudentID: studentMark.StudentID }).then(existingStudentMark => {
                     if (existingStudentMark) {
-                        throw new Error(`This student grade already exist, please if you want to make any change  then update`);
+                        throw new Error(`This student ${studentMark.StudentFirstName} ${studentMark.StudentLastName} grade already exist, please if you want to make any change  then update`);
                     }
                     
                 })
