@@ -24,22 +24,22 @@ StudentMark.post('/StudentMark', async (req, res) => {
     } else {
       const transformedStudentMarks = [];
       Grade.forEach((grade) => {
-        const { studentid, Value } = grade;
-        const remarkValue = Remark.find((remark) => remark.studentid === studentid)?.Value || '';
+        const { studentId, value } = grade;
+        const remarkValue = Remark.find((remark) => remark.studentId === studentId)?.value || '';
 
         transformedStudentMarks.push({
           Class,
           Examination,
           Subject,
-          Grade: [{ studentid, Value }],
-          Remark: [{ studentid, Value: remarkValue }],
+          Grade: [{ studentId, value }],
+          Remark: [{ studentId, value: remarkValue }],
           SchoolEmail,
         });
       });
 
       const uniqueStudentMarks = [];
       for (const studentMark of transformedStudentMarks) {
-        const existingStudentMark = await StudentMarks.findOne({ SchoolEmail: studentMark.SchoolEmail, Class: studentMark.Class, Examination: studentMark.Examination, Subject: studentMark.Subject, studentid: studentMark.Grade[0].studentid }).exec();
+        const existingStudentMark = await StudentMarks.findOne({ SchoolEmail: studentMark.SchoolEmail, Class: studentMark.Class, Examination: studentMark.Examination, Subject: studentMark.Subject, studentId: studentMark.Grade[0].studentId }).exec();
         if (existingStudentMark) {
           throw new Error(`Student Grade already exist`);
         }
