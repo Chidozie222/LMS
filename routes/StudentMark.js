@@ -40,7 +40,7 @@ StudentMark.post('/StudentMark', async(req, res) => {
         }
             
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message })
     }
 })
 
