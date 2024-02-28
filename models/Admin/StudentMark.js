@@ -8,6 +8,7 @@ const StudentMark = new mongoose.Schema(
         RollNumber: Number,
         StudentFirstName: String,
         StudentLastName: String,
+        StudentID: String,
         Grade: String,
         Remarks: String,
         SchoolEmail: String

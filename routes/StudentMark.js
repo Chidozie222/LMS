@@ -16,27 +16,29 @@ const StudentMarks = mongoose.model('StudentMark')
 
 // routes for posting the student marks information
 StudentMark.post('/StudentMark', async(req, res) => {
-    const { Class, Examination, Subject, RollNumber, StudentFirstName, StudentLastName, Grade, Remarks, SchoolEmail } = req.body
-
-    let User = await StudentMarks.find({ SchoolEmail, Class, Examination, Subject, StudentFirstName, StudentLastName })
+    const { Class, Examination, Subject, StudentMark, SchoolEmail } = req.body;
 
     try {
-        if (User.length > 0) {
-            res.send({ status: 'error', message: 'sorry, but student has been given a grade' })
+        if (!Class && !Examination && !Subject && !StudentMark && StudentMark.length === 0) {
+            res.status(400).send({ message: `Some or all the value are missing` })
         } else {
-            await StudentMarks.create({
-                Class, 
-                Examination, 
-                Subject, 
-                RollNumber, 
-                StudentFirstName, 
-                StudentLastName, 
-                Grade, 
-                Remarks,
-                SchoolEmail
+            const addValuesToStudentMarkArray = StudentMark.map(studentMarks => {
+                return { ...studentMarks, SchoolEmail, Class, Examination, Subject }
             })
-            res.send({ status: 'ok', message: 'data uploaded successfully' })
+            const newStudentMark = addValuesToStudentMarkArray.map(studentMark => {
+                return StudentMarks.findOne({ SchoolEmail, Class, Examination, Subject, StudentID: studentMark.StudentID }).then(existingStudentMark => {
+                    if (existingStudentMark) {
+                        throw new Error(`This student grade already exist, please if you want to make any change  then update`);
+                    }
+                    
+                })
+            })
+
+            await Promise.all(newStudentMark)
+            const result = await StudentMarks.insertMany(addValuesToStudentMarkArray)
+            res.send({ status: 'ok', message: 'data uploaded successfully', data: result })
         }
+            
     } catch (error) {
         res.send({ status: 'error', message: 'error in the server' })
     }
