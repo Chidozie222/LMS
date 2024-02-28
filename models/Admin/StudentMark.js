@@ -5,12 +5,8 @@ const StudentMark = new mongoose.Schema(
         Class: String,
         Examination: String,
         Subject: String,
-        RollNumber: Number,
-        StudentFirstName: String,
-        StudentLastName: String,
-        StudentID: String,
-        Grade: String,
-        Remarks: String,
+        Grade: Array,
+        Remark: String,
         SchoolEmail: String
     },
     {
