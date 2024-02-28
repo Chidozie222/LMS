@@ -6,7 +6,7 @@ const StudentMark = new mongoose.Schema(
         Examination: String,
         Subject: String,
         Grade: Array,
-        Remark: String,
+        Remark: Array,
         SchoolEmail: String
     },
     {
