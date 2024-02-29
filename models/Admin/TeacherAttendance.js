@@ -4,10 +4,7 @@ const mongoose = require('mongoose')
 const TeacherAttendance = new mongoose.Schema(
     {
         Date: Date,
-        TeacherFirstName: String,
-        TeacherLastName: String,
-        Absent: { type: Boolean, default: false },
-        Reason: String,
+        Attendance: Object,
         SchoolEmail: String
     },
     {

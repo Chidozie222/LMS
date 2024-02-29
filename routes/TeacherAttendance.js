@@ -15,26 +15,58 @@ const TeacherAttendances = mongoose.model('TeacherAttendance')
 
 
 TeacherAttendance.post('/TeacherAttendance', async (req, res) => {
-    const { Date, TeacherFirstName, TeacherLastName, Absent, Reason, SchoolEmail } = req.body 
-
-    let UserByClassAndDate = await TeacherAttendances.find({ SchoolEmail, Date, TeacherLastName })
+    const { Date, Attendance, SchoolEmail } = req.body;
     
     try {
-        if (UserByClassAndDate.length > 0) {
-            res.send({ status: 'error', message: 'attendances has already been taken' })
+        if (!Date && !Attendance && !SchoolEmail) {
+            res.status(400).send({ message: `Some or all the value are missing` });
         } else {
-            await TeacherAttendances.create({
-                Date,
-                TeacherFirstName,
-                TeacherLastName,
-                Absent,
-                Reason,
-                SchoolEmail
-            })
-            res.send({ status: 'ok', message: 'Attendance taken' })
+            const arrayForTeacherAttendance = new Array()
+            if (Attendance.absent.length > 0) {
+                Attendance.absent.forEach(element => {
+                    const { teacherID, reason } = element
+                    arrayForTeacherAttendance.push({
+                        Date,
+                        Attendance: { absent: [{ teacherID, reason }] },
+                        SchoolEmail
+                    })
+                })
+            }
+
+            if (Attendance.present.length > 0) {
+                Attendance.present.forEach(element => {
+                    const { teacherID, reason } = element;
+                    arrayForTeacherAttendance.push({
+                        Date,
+                        Attendance: { present: [{ teacherID, reason }] },
+                        SchoolEmail
+                    })
+                })
+            }
+
+            const uniqueTeacherAttendance = new Array();
+            for (const teacherAttendances of arrayForTeacherAttendance) {
+                let existingTeacherAttendance;
+                if (teacherAttendances.Attendance.absent !== undefined) {
+                    existingTeacherAttendance = await TeacherAttendances.findOne({ SchoolEmail: teacherAttendances.SchoolEmail, Date: teacherAttendances.Date, teacherID: teacherAttendances.Attendance.absent[0].teacherID }).exec();
+                    if (existingTeacherAttendance) {
+                        throw new Error('sorry attendance for this student has already been taken')
+                    }
+                    uniqueTeacherAttendance.push(teacherAttendances)
+                } else if (teacherAttendances.Attendance.present  !== undefined) {
+                     existingTeacherAttendance = await TeacherAttendances.findOne({ SchoolEmail: teacherAttendances.SchoolEmail, Date: teacherAttendances.Date, teacherID: teacherAttendances.Attendance.present[0].teacherID }).exec();
+                    if (existingTeacherAttendance) {
+                        throw new Error('sorry attendance for this student has already been taken')
+                    }
+                    uniqueTeacherAttendance.push(teacherAttendances)
+                }
+            }
+
+            const result = await TeacherAttendances.insertMany(uniqueTeacherAttendance);
+            res.send({ status: 'ok', message: `Teacher Attendance has been taken`, data: result })
         }
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message })
     }
 })
 
