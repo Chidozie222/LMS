@@ -50,13 +50,13 @@ TeacherAttendance.post('/TeacherAttendance', async (req, res) => {
                 if (teacherAttendances.Attendance.absent !== undefined) {
                     existingTeacherAttendance = await TeacherAttendances.findOne({ SchoolEmail: teacherAttendances.SchoolEmail, Date: teacherAttendances.Date, teacherId: teacherAttendances.Attendance.absent[0].teacherId }).exec();
                     if (existingTeacherAttendance) {
-                        throw new Error('sorry attendance for this student has already been taken')
+                        throw new Error('sorry attendance for this Teacher has already been taken')
                     }
                     uniqueTeacherAttendance.push(teacherAttendances)
                 } else if (teacherAttendances.Attendance.present  !== undefined) {
                      existingTeacherAttendance = await TeacherAttendances.findOne({ SchoolEmail: teacherAttendances.SchoolEmail, Date: teacherAttendances.Date, teacherId: teacherAttendances.Attendance.present[0].teacherId }).exec();
                     if (existingTeacherAttendance) {
-                        throw new Error('sorry attendance for this student has already been taken')
+                        throw new Error('sorry attendance for this Teacher has already been taken')
                     }
                     uniqueTeacherAttendance.push(teacherAttendances)
                 }
