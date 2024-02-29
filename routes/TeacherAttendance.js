@@ -24,10 +24,10 @@ TeacherAttendance.post('/TeacherAttendance', async (req, res) => {
             const arrayForTeacherAttendance = new Array()
             if (Attendance.absent.length > 0) {
                 Attendance.absent.forEach(element => {
-                    const { teacherID, reason } = element
+                    const { teacherId, reason } = element
                     arrayForTeacherAttendance.push({
                         Date,
-                        Attendance: { absent: [{ teacherID, reason }] },
+                        Attendance: { absent: [{ teacherId, reason }] },
                         SchoolEmail
                     })
                 })
@@ -35,10 +35,10 @@ TeacherAttendance.post('/TeacherAttendance', async (req, res) => {
 
             if (Attendance.present.length > 0) {
                 Attendance.present.forEach(element => {
-                    const { teacherID, reason } = element;
+                    const { teacherId, reason } = element;
                     arrayForTeacherAttendance.push({
                         Date,
-                        Attendance: { present: [{ teacherID, reason }] },
+                        Attendance: { present: [{ teacherId, reason }] },
                         SchoolEmail
                     })
                 })
@@ -48,13 +48,13 @@ TeacherAttendance.post('/TeacherAttendance', async (req, res) => {
             for (const teacherAttendances of arrayForTeacherAttendance) {
                 let existingTeacherAttendance;
                 if (teacherAttendances.Attendance.absent !== undefined) {
-                    existingTeacherAttendance = await TeacherAttendances.findOne({ SchoolEmail: teacherAttendances.SchoolEmail, Date: teacherAttendances.Date, teacherID: teacherAttendances.Attendance.absent[0].teacherID }).exec();
+                    existingTeacherAttendance = await TeacherAttendances.findOne({ SchoolEmail: teacherAttendances.SchoolEmail, Date: teacherAttendances.Date, teacherId: teacherAttendances.Attendance.absent[0].teacherId }).exec();
                     if (existingTeacherAttendance) {
                         throw new Error('sorry attendance for this student has already been taken')
                     }
                     uniqueTeacherAttendance.push(teacherAttendances)
                 } else if (teacherAttendances.Attendance.present  !== undefined) {
-                     existingTeacherAttendance = await TeacherAttendances.findOne({ SchoolEmail: teacherAttendances.SchoolEmail, Date: teacherAttendances.Date, teacherID: teacherAttendances.Attendance.present[0].teacherID }).exec();
+                     existingTeacherAttendance = await TeacherAttendances.findOne({ SchoolEmail: teacherAttendances.SchoolEmail, Date: teacherAttendances.Date, teacherId: teacherAttendances.Attendance.present[0].teacherId }).exec();
                     if (existingTeacherAttendance) {
                         throw new Error('sorry attendance for this student has already been taken')
                     }
