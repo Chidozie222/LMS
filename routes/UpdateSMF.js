@@ -14,11 +14,11 @@ const SubjectMarkFields = mongoose.model('SubjectMarkField')
 
 
 UpdateSMF.post('/UpdateSubjectMarkField', async (req, res) => {
-    const { Class, SubjectName, Field, SchoolEmail } = req.body
+    const { _id, Field } = req.body
 
     try {
-        await SubjectMarkFields.findOneAndUpdate(
-            { SchoolEmail, Class, SubjectName },
+        await SubjectMarkFields.findByIdAndUpdate(
+            { _id },
             {
                 $set:
                 {
@@ -30,7 +30,35 @@ UpdateSMF.post('/UpdateSubjectMarkField', async (req, res) => {
             res.send({ status: 'ok', message: 'Data uploaded successfully' })
 
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message })
+    }
+})
+
+UpdateSMF.get('/getSubjectMarkFieldsByID/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            let user = await SubjectMarkFields.findById({ _id: id })
+            res.status(200).send({ data: user })
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+})
+
+UpdateSMF.delete('/DeleteSubjectMarkFields/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            await SubjectMarkFields.findByIdAndDelete({ _id: id })
+        }
+        res.send({ status: "OK", message: 'Delete Successful' })
+    } catch (error) {
+        res.status(500).send({ message: error.message })
     }
 })
 

@@ -15,27 +15,53 @@ const TimeTables = mongoose.model('TimeTable')
 
 
 UpdateTimeTable.post('/UpdateTimeTable', async (req, res) => {
-    const { StartTime, EndTime, Subject, Teacher, Day, Class, SchoolEmail } = req.body 
+    const { EndTime, Subject, Teacher, Day, Class, _id } = req.body 
 
     try {
-            await TimeTables.findOneAndUpdate(
-                { SchoolEmail, Class, Day, StartTime },
+            await TimeTables.findByIdAndUpdate(
+                { _id },
                 {
                     $set: 
-                    {
-                        StartTime, 
+                    { 
                         EndTime, 
                         Subject, 
                         Teacher, 
                         Day, 
-                        Class, 
-                        SchoolEmail
+                        Class,
                     }
                 }
             )
             res.send({ status: 'ok', message: 'Updated successfully' })
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message })
+    }
+})
+
+UpdateTimeTable.get('/getTimeTablesByID/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            let user = await TimeTables.findById({ _id: id })
+            res.status(200).send({ data: user })
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+})
+
+UpdateTimeTable.delete('/DeleteTimeTables/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            await TimeTables.findByIdAndDelete({ _id: id })
+        }
+        res.send({ status: "OK", message: 'Delete Successful' })
+    } catch (error) {
+        res.status(500).send({ message: error.message })
     }
 })
 

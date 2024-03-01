@@ -16,23 +16,51 @@ const StudentMarks = mongoose.model('StudentMark')
 
 // routes for posting the student marks information
 UpdateStudentMark.post('/UpdateStudentMark', async(req, res) => {
-    const { Class, Examination, Subject, RollNumber, Grade, Remarks, SchoolEmail } = req.body
+    const { _id, Grade, Remark } = req.body
 
 
     try {
-            await StudentMarks.findOneAndUpdate(
-                { SchoolEmail, Class, Examination, Subject, RollNumber },
+            await StudentMarks.findByIdAndUpdate(
+                { _id },
                 {
                     $set:
                     {
                         Grade, 
-                        Remarks
+                        Remark
                     }
                 }
             )
             res.send({ status: 'ok', message: 'data uploaded successfully' })
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message })
+    }
+})
+
+UpdateStudentMark.get('/getStudentMarksByID/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            let user = await StudentMarks.findById({ _id: id })
+            res.status(200).send({ data: user })
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+})
+
+UpdateStudentMark.delete('/DeleteStudentMarks/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            await StudentMarks.findByIdAndDelete({ _id: id })
+        }
+        res.send({ status: "OK", message: 'Delete Successful' })
+    } catch (error) {
+        res.status(500).send({ message: error.message })
     }
 })
 

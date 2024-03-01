@@ -26,7 +26,7 @@ updateParent.use(express.static('public'))
 
 
 updateParent.post('/updateParent', upload.single('ParentPicture'), async (req, res) => {
-    const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession, SchoolEmail } = req.body;
+    const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, _id, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession } = req.body;
 
     let ParentPicture = req.file.filename;
 
@@ -39,24 +39,61 @@ updateParent.post('/updateParent', upload.single('ParentPicture'), async (req, r
     try {
 
         if (!req.file) {
-            res.status(400).send({ message: "image not found" })
+            await parentModel.findByIdAndUpdate(
+                { _id },
+                {
+                    $set:
+                    {
+                        ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession
+                    }
+                }
+            )
+            res.status(200).send({ message: `Parent data has been uploaded successfully` })
         } else if (MaxFileSize < PP) {
             res.send({ message: 'The pictures is greater than 3mb, please reduce it' })
         } else {
-            await parentModel.findOneAndUpdate(
-                { SchoolEmail, ParentUserName },
+            await parentModel.findByIdAndUpdate(
+                { _id },
                 {
                     $set:
                     {
                         ParentPicture,
-                        ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession, SchoolEmail
+                        ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession
                     }
                 }
             )
             res.status(200).send({ message: `Parent data has been uploaded successfully` })
         }
     } catch (error) {
-        res.status(500).send({ message: 'Internal server error' })
+        res.status(500).send({ message: error.message })
+    }
+})
+
+updateParent.get('/getParentByID/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            let user = await parentModel.findById({ _id: id })
+            res.status(200).send({ data: user })
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+})
+
+updateParent.delete('/DeleteParent/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            await parentModel.findByIdAndDelete({ _id: id })
+        }
+        res.send({ status: "OK", message: 'Delete Successful' })
+    } catch (error) {
+        res.status(500).send({ message: error.message })
     }
 })
 

@@ -15,11 +15,11 @@ const Notifies = mongoose.model('Notify')
 
 
 UpdateNotify.post('/UpdateNotify', async (req, res) => {
-    const { Name, Receiver, Description, SchoolEmail } = req.body
+    const { _id, Receiver, Description  } = req.body
     
     try {
-            await Notifies.findOneAndUpdate(
-                { SchoolEmail, Name },
+            await Notifies.findByIdAndUpdate(
+                { _id },
                 {
                     $set: { 
                         Receiver, 
@@ -29,7 +29,35 @@ UpdateNotify.post('/UpdateNotify', async (req, res) => {
             )
             res.send({ status: 'ok', message: 'data uploaded successfully' })
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message })
+    }
+})
+
+UpdateNotify.get('/getNotifyByID/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            let user = await Notifies.findById({ _id: id })
+            res.status(200).send({ data: user })
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+})
+
+UpdateNotify.delete('/DeleteNotify/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            await Notifies.findByIdAndDelete({ _id: id })
+        }
+        res.send({ status: "OK", message: 'Delete Successful' })
+    } catch (error) {
+        res.status(500).send({ message: error.message })
     }
 })
 

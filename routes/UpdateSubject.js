@@ -15,16 +15,15 @@ const Subjects = mongoose.model('Subject')
 
 // Updating subject data in the database
 UpdateSubject.post('/UpdateSubject', async (req, res) => {
-    const { Class, SubjectName, SubjectCode, SubjectTeacher, BookName, SchoolEmail } = req.body
+    const { _id, Class, SubjectCode, SubjectTeacher, BookName  } = req.body
 
     try {
-        await Subjects.findOneAndUpdate(
-            { SchoolEmail, SubjectName },
+        await Subjects.findByIdAndUpdate(
+            { _id },
             {
                 $set:
                 {
-                    Class, 
-                    SubjectName, 
+                    Class,
                     SubjectCode, 
                     SubjectTeacher, 
                     BookName
@@ -34,7 +33,35 @@ UpdateSubject.post('/UpdateSubject', async (req, res) => {
         )
             res.send({ status: 'ok', message: 'Subject successfully Upload' })
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message })
+    }
+})
+
+UpdateSubject.get('/getSubjectsByID/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            let user = await Subjects.findById({ _id: id })
+            res.status(200).send({ data: user })
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+})
+
+UpdateSubject.delete('/DeleteSubjects/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            await Subjects.findByIdAndDelete({ _id: id })
+        }
+        res.send({ status: "OK", message: 'Delete Successful' })
+    } catch (error) {
+        res.status(500).send({ message: error.message })
     }
 })
 

@@ -15,11 +15,11 @@ const Transportations = mongoose.model('Transportation')
 
 
 UpdateTransportation.post('/UpdateTransportation', async (req, res) => {
-    const { VehicleName, VehicleNumber, DriverName, DriverPhone, RouteFees, VehicleRoute, SchoolEmail } = req.body
+    const { VehicleName, VehicleNumber, DriverPhone, RouteFees, VehicleRoute } = req.body
 
     try {
-            await Transportations.findOneAndUpdate(
-                { SchoolEmail, DriverName },
+            await Transportations.findByIdAndUpdate(
+                { _id },
                 {
                     $set: 
                     {
@@ -33,7 +33,35 @@ UpdateTransportation.post('/UpdateTransportation', async (req, res) => {
             )
             res.send({ status: 'ok', message: 'data has been uploaded' })
     } catch (error) {
-        res.send({ status: 'error', message: 'error in the server' })
+        res.send({ status: 'error', message: error.message })
+    }
+})
+
+UpdateTransportation.get('/getTransportationByID/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            let user = await Transportations.findById({ _id: id })
+            res.status(200).send({ data: user })
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+})
+
+UpdateTransportation.delete('/DeleteTransportation/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            await Transportations.findByIdAndDelete({ _id: id })
+        }
+        res.send({ status: "OK", message: 'Delete Successful' })
+    } catch (error) {
+        res.status(500).send({ message: error.message })
     }
 })
 

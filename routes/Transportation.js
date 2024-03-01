@@ -18,9 +18,9 @@ Transportation.post('/Transportation', async (req, res) => {
     const { VehicleName, VehicleNumber, DriverName, DriverPhone, RouteFees, VehicleRoute, SchoolEmail } = req.body
 
     try {
-        const UserByDriverName = await Transportations.find({ SchoolEmail, DriverName })
+        const UserByDriverName = await Transportations.findOne({ SchoolEmail, DriverName })
 
-        if (UserByDriverName.length > 0) {
+        if (UserByDriverName) {
             res.send({ status: 'error', message: 'User has already available' })
         } else {
             await Transportations.create({

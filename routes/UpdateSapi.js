@@ -37,7 +37,7 @@ UpdateSapi.use(express.static('public'))
 // Post all teachers from database
 
 UpdateSapi.post('/UpdateSapi', upload.single('StudentPicture'), async (req, res) => {
-    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentID, Role, Class, RollNumber, StudentUsername, SchoolEmail } = req.body
+    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentID, Role, Class, RollNumber, _id, SchoolEmail } = req.body
     
     let StudentPicture = req.file.filename
 
@@ -51,13 +51,39 @@ UpdateSapi.post('/UpdateSapi', upload.single('StudentPicture'), async (req, res)
 
     try {
 
-        if ( MaxFileSize >= SP) {
-                res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
-            } else if (userByClass.length > UserByClassCapacity.ClassCapacity) {
+         if (userByClass.length > UserByClassCapacity.ClassCapacity) {
                 res.send({ message: `The Class is full` })
-            } else {
-            await SAPI.findOneAndUpdate(
-                    {SchoolEmail, StudentUsername},
+            } else if (!req.file) {
+                await SAPI.findByIdAndUpdate(
+                    { _id },
+                    {
+                        $set:
+                        {
+                            StudentGender,
+                            StudentFirstName, 
+                            StudentMiddleName, 
+                            StudentLastName, 
+                            StudentDoB, 
+                            StudentBloodGroup, 
+                            StudentPhoneNumber, 
+                            StudentAddress, 
+                            StudentCity, 
+                            StudentCountry, 
+                            StudentZipCode, 
+                            ParentID,
+                            Role,
+                            Class, 
+                            RollNumber
+                        }
+                    },
+                    { upsert: true }
+            )
+                res.send({status: 'ok', message: 'Data uploaded successfully'})
+            } else if ( MaxFileSize >= SP) {
+                res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
+            }  else {
+            await SAPI.findByIdAndUpdate(
+                    { _id },
                     {
                         $set:
                         {
@@ -76,8 +102,7 @@ UpdateSapi.post('/UpdateSapi', upload.single('StudentPicture'), async (req, res)
                             ParentID,
                             Role,
                             Class, 
-                            RollNumber, 
-                            SchoolEmail
+                            RollNumber
                         }
                     },
                     { upsert: true }
@@ -85,7 +110,35 @@ UpdateSapi.post('/UpdateSapi', upload.single('StudentPicture'), async (req, res)
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
     } catch (error) {
-        res.send({ status: 'error', message: 'Error in the server' })
+        res.send({ status: 'error', message: error.message })
+    }
+})
+
+UpdateSapi.get('/getStudentByID/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            let user = await SAPI.findById({ _id: id })
+            res.status(200).send({ data: user })
+        }
+    } catch (error) {
+        res.status(500).send({ message: error.message })
+    }
+})
+
+UpdateSapi.delete('/DeleteStudent/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            res.status(400).send({ message: `I did not get any ID` })
+        } else {
+            await SAPI.findByIdAndDelete({ _id: id })
+        }
+        res.send({ status: "OK", message: 'Delete Successful' })
+    } catch (error) {
+        res.status(500).send({ message: error.message })
     }
 })
 
