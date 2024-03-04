@@ -25,18 +25,20 @@ GetClass.get('/getClass/:SchoolEmail', async (req, res) => {
         let user = await Classes.find({ SchoolEmail })
 
         if (user && user.length > 0) {
-            let result = []
-            user.forEach(async(classTeacherNameAndId) => {
+            let promises = user.map(async(classTeacherNameAndId) => {
                 const { ClassTeacher } = classTeacherNameAndId
                 let teacherInfo = await Teachers.findById({ _id: ClassTeacher }).select(['TeacherFirstName', 'TeacherLastName'])
-                result.push({ ...classTeacherNameAndId, "ClassTeacherInfo": teacherInfo })
+                return { ...classTeacherNameAndId._doc, "ClassTeacherInfo": `${teacherInfo.TeacherFirstName} ${teacherInfo.TeacherLastName}` }
             })
+
+            let result = await Promise.all(promises)
+
             res.send({status: 'ok', data: result})
         } else {
             res.send({status: 'pending', message: 'No data found', data: []})
         }
     } catch (error) {
-        res.send({statue: 'error', message: 'error in the server'})
+        res.send({status: 'error', message: error.message})
     }
 })
 module.exports = GetClass

@@ -136,6 +136,7 @@ app.use(getAllUsers)
 // connection to the database configuration 
 mongoose.connect(process.env.MONGOURL)
     .then(() => {
+        console.log(`fine`);
     }) 
     .catch((err) => {
     })
@@ -143,4 +144,6 @@ mongoose.connect(process.env.MONGOURL)
 
 
 // Port listener 
-app.listen(process.env.PORT)
+app.listen(process.env.PORT, function () {
+    console.log(process.env.PORT);
+})
