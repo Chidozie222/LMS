@@ -29,7 +29,7 @@ GetClass.get('/getClass/:SchoolEmail', async (req, res) => {
             user.forEach(async(classTeacherNameAndId) => {
                 const { ClassTeacher } = classTeacherNameAndId
                 let teacherInfo = await Teachers.findById(ClassTeacher).select(['TeacherFirstName', 'TeacherLastName'])
-                result.push({ ...classTeacherNameAndId, "ClassTeacher": teacherInfo })
+                result.push({ ...classTeacherNameAndId, "ClassTeacherInfo": teacherInfo })
             })
             res.send({status: 'ok', data: result})
         } else {
