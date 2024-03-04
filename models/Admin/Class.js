@@ -8,7 +8,6 @@ const Class = new mongoose.Schema(
         ClassCapacity: Number,
         ClassTeacher: String,
         ClassStartingOn: Date,
-        TeacherId: String,
         ClassEndingOn: Date,
         ClassLocation: String,
         ClassFeeType: { type: String, default: 'Free' },

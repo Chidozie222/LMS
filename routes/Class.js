@@ -27,7 +27,6 @@ classRoom.post('/Class', async (req, res) => {
                 ClassCapacity, 
                 ClassTeacher, 
                 ClassStartingOn,
-                TeacherId,
                 ClassEndingOn, 
                 ClassLocation, 
                 ClassFeeType, 
