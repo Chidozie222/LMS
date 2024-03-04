@@ -13,7 +13,7 @@ require('../models/Admin/Class')
 const Classes = mongoose.model('Class')
 
 classRoom.post('/Class', async (req, res) => {
-    const { Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail } = req.body
+    const { Class, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, TeacherId, ClassEndingOn, ClassLocation, ClassFeeType, SchoolEmail } = req.body
     try {
         let User = await Classes.find({ SchoolEmail, Class })
         if (!Class && !ClassNumber && !ClassCapacity && !ClassTeacher && !ClassStartingOn && !ClassEndingOn && !ClassLocation && !ClassFeeType && !SchoolEmail) { 
@@ -26,7 +26,8 @@ classRoom.post('/Class', async (req, res) => {
                 ClassNumber, 
                 ClassCapacity, 
                 ClassTeacher, 
-                ClassStartingOn, 
+                ClassStartingOn,
+                TeacherId,
                 ClassEndingOn, 
                 ClassLocation, 
                 ClassFeeType, 
