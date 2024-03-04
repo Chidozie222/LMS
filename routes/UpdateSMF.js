@@ -56,7 +56,7 @@ UpdateSMF.delete('/DeleteSubjectMarkFields/:id', async (req, res) => {
         } else {
             await SubjectMarkFields.findByIdAndDelete({ _id: id })
         }
-        res.send({ status: "OK", message: 'Delete Successful' })
+        res.send({ status: "ok", message: 'Delete Successful' })
     } catch (error) {
         res.status(500).send({ message: error.message })
     }
