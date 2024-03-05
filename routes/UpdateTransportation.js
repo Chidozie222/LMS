@@ -14,8 +14,10 @@ require('../models/Admin/Transportation')
 const Transportations = mongoose.model('Transportation')
 
 
-UpdateTransportation.post('/UpdateTransportation', async (req, res) => {
-    const { VehicleName, VehicleNumber, DriverPhone, RouteFees, VehicleRoute } = req.body
+UpdateTransportation.put('/UpdateTransportation/:id', async (req, res) => {
+    const { VehicleName, VehicleNumber, DriverPhone, RouteFees, VehicleRoute } = req.body;
+    const _id = req.params.id
+
 
     try {
             await Transportations.findByIdAndUpdate(

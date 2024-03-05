@@ -36,8 +36,9 @@ UpdateSapi.use(express.static('public'))
 
 // Post all teachers from database
 
-UpdateSapi.post('/UpdateSapi', upload.single('StudentPicture'), async (req, res) => {
-    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentID, Role, Class, RollNumber, _id, SchoolEmail } = req.body
+UpdateSapi.put('/UpdateSapi/:id', upload.single('StudentPicture'), async (req, res) => {
+    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentID, Role, Class, RollNumber, SchoolEmail } = req.body;
+    const _id = req.params.id
     
     let StudentPicture = req.file.filename
 

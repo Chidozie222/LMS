@@ -13,8 +13,9 @@ require('../models/Admin/SubjectMarkField')
 const SubjectMarkFields = mongoose.model('SubjectMarkField')
 
 
-UpdateSMF.post('/UpdateSubjectMarkField', async (req, res) => {
-    const { _id, Field } = req.body
+UpdateSMF.put('/UpdateSubjectMarkField/:id', async (req, res) => {
+    const { Field } = req.body;
+    const _id = req.params.id;
 
     try {
         await SubjectMarkFields.findByIdAndUpdate(

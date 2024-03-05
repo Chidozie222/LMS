@@ -15,8 +15,9 @@ const StudentMarks = mongoose.model('StudentMark')
 
 
 // routes for posting the student marks information
-UpdateStudentMark.post('/UpdateStudentMark', async(req, res) => {
-    const { _id, Grade, Remark } = req.body
+UpdateStudentMark.put('/UpdateStudentMark/:id', async(req, res) => {
+    const { Grade, Remark } = req.body;
+    const _id = req.params.id;
 
 
     try {

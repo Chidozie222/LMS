@@ -14,8 +14,9 @@ const TimeTables = mongoose.model('TimeTable')
 
 
 
-UpdateTimeTable.post('/UpdateTimeTable', async (req, res) => {
-    const { EndTime, Subject, Teacher, Day, Class, _id } = req.body 
+UpdateTimeTable.put('/UpdateTimeTable/:id', async (req, res) => {
+    const { EndTime, Subject, Teacher, Day, Class } = req.body;
+    const _id = req.params.id;
 
     try {
             await TimeTables.findByIdAndUpdate(

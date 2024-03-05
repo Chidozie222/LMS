@@ -14,8 +14,9 @@ require('../models/Admin/subject')
 const Subjects = mongoose.model('Subject')
 
 // Updating subject data in the database
-UpdateSubject.post('/UpdateSubject', async (req, res) => {
-    const { _id, Class, SubjectCode, SubjectTeacher, BookName  } = req.body
+UpdateSubject.put('/UpdateSubject/:id', async (req, res) => {
+    const { Class, SubjectCode, SubjectTeacher, BookName } = req.body
+    const _id = req.params.id;
 
     try {
         await Subjects.findByIdAndUpdate(
