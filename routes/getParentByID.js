@@ -7,6 +7,7 @@ require('../models/Admin/Parent')
 
 const parentModel = mongoose.model('Parent')
 
+
 getParentID.get('/getParentID/:_id', async (req, res) => {
     try {
         let id = req.params._id
