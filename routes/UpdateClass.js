@@ -12,8 +12,9 @@ require('../models/Admin/Class')
 // setting up the schema for the Class information backend
 const Classes = mongoose.model('Class')
 
-UpdateClass.post('/UpdateClass', async (req, res) => {
-    const { id, ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType } = req.body
+UpdateClass.put('/UpdateClass/:id', async (req, res) => {
+    const { ClassNumber, ClassCapacity, ClassTeacher, ClassStartingOn, ClassEndingOn, ClassLocation, ClassFeeType } = req.body
+    const id = req.params.id;
     try {
         await Classes.findByIdAndUpdate(
                 { _id: id },

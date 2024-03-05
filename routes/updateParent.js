@@ -25,8 +25,9 @@ const upload = multer({ storage: storage })
 updateParent.use(express.static('public'))
 
 
-updateParent.post('/updateParent', upload.single('ParentPicture'), async (req, res) => {
-    const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, _id, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession } = req.body;
+updateParent.put('/updateParent/:id', upload.single('ParentPicture'), async (req, res) => {
+    const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession } = req.body;
+    const _id = req.params.id
 
     let ParentPicture = req.file.filename;
 

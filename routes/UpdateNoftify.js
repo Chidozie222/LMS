@@ -14,8 +14,9 @@ require('../models/Admin/Notify')
 const Notifies = mongoose.model('Notify')
 
 
-UpdateNotify.post('/UpdateNotify', async (req, res) => {
-    const { _id, Receiver, Description  } = req.body
+UpdateNotify.put('/UpdateNotify/:id', async (req, res) => {
+    const {  Receiver, Description  } = req.body
+    const _id = req.params.id
     
     try {
             await Notifies.findByIdAndUpdate(
