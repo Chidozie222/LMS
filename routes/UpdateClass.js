@@ -32,7 +32,7 @@ UpdateClass.put('/UpdateClass/:id', async (req, res) => {
                 },
                 { upsert: true }
             )
-            res.send({ status: 'ok', message: 'Class successfully created' })
+            res.send({ status: 'ok', message: 'Class successfully Update' })
         
     } catch (error) {
         res.send({ status: 'error', message: error.message })
