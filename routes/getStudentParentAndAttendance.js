@@ -38,6 +38,10 @@ getStudentParentAndAttendance.get("/getStudentParentAndAttendance/:id", async (r
                 let attendanceInfo = await Attendances.find({ studentId: id })
                 if (attendanceInfo && attendanceInfo.length > 0) {
                     attendanceInfo.forEach(attendanceDoc => {
+                        let attendance = {
+                            present: 0,
+                            absent: 0
+                        }
                         let present = 0
                         let absent = 0
                         if (attendanceDoc.Attendance.present === undefined) {
