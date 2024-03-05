@@ -37,17 +37,17 @@ getStudentParentAndAttendance.get("/getStudentParentAndAttendance/:id", async (r
                 let parentInfo = await parentModel.findById({ _id: parentID })
                 let attendanceInfo = await Attendances.find({ studentId: id })
                 if (attendanceInfo && attendanceInfo.length > 0) {
-                    for (let i = 0; i < attendanceInfo; i++) { 
-                    let present = 0
-                    let absent = 0
-                    if (attendanceInfo[i].Attendance.present === undefined) {
-                        absent++
-                    } else if (attendanceInfo[i].Attendance.absent === undefined) {
-                        present++
-                    }
-                    attendance.present = present;
-                    attendance.absent = absent;
-                    }
+                    attendanceInfo.forEach(attendanceDoc => {
+                        let present = 0
+                        let absent = 0
+                        if (attendanceDoc.Attendance.present === undefined) {
+                            absent++
+                        } else if (attendanceDoc.Attendance.absent === undefined) {
+                            present++
+                        }
+                        attendance.present = present;
+                        attendance.absent = absent;
+                    })
                     return { ...studentInfo, ...parentInfo, "attendanceInformation": attendanceInfo, ...attendance }
                 } else {
                     throw new Error({message: 'No attendance data found.'})
