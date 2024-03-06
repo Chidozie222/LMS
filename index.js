@@ -63,6 +63,7 @@ const getParentID = require('./routes/getParentByID')
 const studentParentID = require('./routes/studentParentID')
 const getAllUsers = require('./routes/getAllUsers')
 const getStudentParentAndAttendance = require('./routes/getStudentParentAndAttendance')
+const UpdateExamination = require('./routes/updateExamination')
 require('dotenv').config()
 
 // initialing the express app
@@ -135,6 +136,7 @@ app.use(getParentID)
 app.use(studentParentID)
 app.use(getAllUsers)
 app.use(getStudentParentAndAttendance)
+app.use(UpdateExamination)
 // connection to the database configuration 
 mongoose.connect(process.env.MONGOURL)
     .then(() => {
