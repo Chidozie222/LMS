@@ -21,6 +21,7 @@ getStudentParentAndAttendance.get("/getStudentParentAndAttendance/:id", async (r
                     present: 0,
                     absent: 0,
                 }
+                
                 let attendanceInfo;
                 let studentInfo = await SAPI.findById(id); // Added await here
                 let parentID = studentInfo.ParentID
