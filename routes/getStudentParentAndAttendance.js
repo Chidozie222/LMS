@@ -1,24 +1,13 @@
 const { Router } = require("express");
 const mongoose = require("mongoose");
 
-
 const getStudentParentAndAttendance = Router()
 
-
 require('../models/Admin/Parent')
-
 const parentModel = mongoose.model('Parent')
-
-// calling the schema 
 require('../models/Admin/student')
-
-// setting up the schema for the Student and Parent information backend
 const SAPI = mongoose.model('SAPI')
-
-// calling the schema 
 require('../models/Admin/Attendance')
-
-// setting up the schema for the Attendance information backend
 const Attendances = mongoose.model('Attendance')
 
 getStudentParentAndAttendance.get("/getStudentParentAndAttendance/:id", async (req, res) => {
@@ -32,33 +21,31 @@ getStudentParentAndAttendance.get("/getStudentParentAndAttendance/:id", async (r
                     present: 0,
                     absent: 0,
                 }
-                let studentInfo = await SAPI.findById(id);
+                let attendanceInfo;
+                let studentInfo = await SAPI.findById(id); // Added await here
                 let parentID = studentInfo.ParentID
                 let parentInfo = await parentModel.findById({ _id: parentID })
-                let attendanceInfo = await Attendances.find({ studentId: id })
-                if (attendanceInfo && attendanceInfo.length > 0) {
-                    attendanceInfo.forEach(attendanceDoc => {
-                        let attendance = {
-                            present: 0,
-                            absent: 0
-                        }
+                attendanceInfo = await Attendances.find({ "Attendance.present": { $elemMatch: { studentId: id } } })
+                if (attendanceInfo[0] === undefined) {
+                    attendanceInfo = await Attendances.find({ "Attendance.absent": { $elemMatch: { studentId: id } } })
+                } 
                         let present = 0
                         let absent = 0
+                attendanceInfo.forEach(attendanceDoc => {
                         if (attendanceDoc.Attendance.present === undefined) {
                             absent++
                         } else if (attendanceDoc.Attendance.absent === undefined) {
                             present++
                         }
                         attendance.present = present;
-                        attendance.absent = absent;
-                    })
-                    return { ...studentInfo, ...parentInfo, "attendanceInformation": attendanceInfo, ...attendance }
-                } else {
-                    throw new Error({message: 'No attendance data found.'})
-                }
+                    attendance.absent = absent;
+                })
+                 const joinedObj = {attendanceDetails: attendanceInfo, ...[studentInfo, parentInfo, attendance]}
+                return joinedObj
             }
+            
 
-            let result = await Promise.all(promises())
+            let result = await promises()
             res.status(200).send({ status: 'ok', data: result })
         }
     } catch (error) {
