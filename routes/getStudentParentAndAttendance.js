@@ -29,7 +29,10 @@ getStudentParentAndAttendance.get("/getStudentParentAndAttendance/:id", async (r
                 if (attendanceInfo[0] === undefined) {
                     attendanceInfo = await Attendances.find({ "Attendance.absent": { $elemMatch: { studentId: id } } })
                 } 
-                        let present = 0
+
+
+                if (attendanceInfo && attendanceInfo.length > 0) {
+                    let present = 0
                         let absent = 0
                 attendanceInfo.forEach(attendanceDoc => {
                         if (attendanceDoc.Attendance.present === undefined) {
@@ -42,6 +45,10 @@ getStudentParentAndAttendance.get("/getStudentParentAndAttendance/:id", async (r
                 })
                  const joinedObj = {attendanceDetails: attendanceInfo, ...[studentInfo, parentInfo, attendance]}
                 return joinedObj
+                } else {
+                    throw new Error(`Attendance has not been taken`)
+                }
+                        
             }
             
 
