@@ -58,7 +58,7 @@ generalSignIn.post('/GeneralSignIn', async(req, res) => {
         } else if (studentEmail && studentEmail.StudentPassword === StudentPassword) {
             res.send({ status: 'ok', message: 'you have successfully logged in', data: studentEmail, Role: "student" })
         } else {
-            res.send({ status: 'error', message: 'Email does not exist' })
+            res.send({ status: 'error', message: 'Email or password in incorrect' })
         }
     } catch (error) {
         res.send({ status: 'error', message: 'Error in the server' })
