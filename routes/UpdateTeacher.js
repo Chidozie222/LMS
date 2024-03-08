@@ -31,7 +31,7 @@ UpdateTeacher.use(express.static('public'))
 // Post all teachers from database
 
 UpdateTeacher.put('/UpdateTeachers/:id', upload.single('TeacherPicture'), async (req, res) => {
-    const { TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours } = req.body
+    const { TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours, SchoolEmail } = req.body
     const _id = req.params.id;
     
     let TeacherPicture = req.file.filename

@@ -26,7 +26,7 @@ updateParent.use(express.static('public'))
 
 
 updateParent.put('/updateParent/:id', upload.single('ParentPicture'), async (req, res) => {
-    const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword,  ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession } = req.body;
+    const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword,  ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession, SchoolEmail } = req.body;
     const _id = req.params.id
 
     let ParentPicture = req.file.filename;
@@ -39,7 +39,21 @@ updateParent.put('/updateParent/:id', upload.single('ParentPicture'), async (req
 
     try {
 
-        if (!req.file) {
+        let userByUserName = await parentModel.findOne({
+          SchoolEmail,
+          ParentUserName,
+        });
+        let userByEmail = await parentModel.findOne({
+          SchoolEmail,
+          ParentEmail,
+        });
+        let userByPhoneNumber = await parentModel.findOne({
+          SchoolEmail,
+          ParentPhone,
+        });
+        if (userByUserName && userByEmail && userByPhoneNumber) {
+            res.send({ message: `user already exists` })
+        } else if (!req.file) {
             await parentModel.findByIdAndUpdate(
                 { _id },
                 {
