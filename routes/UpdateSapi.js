@@ -37,7 +37,7 @@ UpdateSapi.use(express.static('public'))
 // Post all teachers from database
 
 UpdateSapi.put('/UpdateSapi/:id', upload.single('StudentPicture'), async (req, res) => {
-    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, ParentID, Role, Class, RollNumber, SchoolEmail } = req.body;
+    const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, StudentEmail, StudentUsername, StudentPassword, ParentID, Role, Class, RollNumber } = req.body;
     const _id = req.params.id
     
     let StudentPicture = req.file.filename
@@ -56,58 +56,62 @@ UpdateSapi.put('/UpdateSapi/:id', upload.single('StudentPicture'), async (req, r
                 res.send({ message: `The Class is full` })
             } else if (!req.file) {
                 await SAPI.findByIdAndUpdate(
-                    { _id },
-                    {
-                        $set:
-                        {
-                            StudentGender,
-                            StudentFirstName, 
-                            StudentMiddleName, 
-                            StudentLastName, 
-                            StudentDoB, 
-                            StudentBloodGroup, 
-                            StudentPhoneNumber, 
-                            StudentAddress, 
-                            StudentCity, 
-                            StudentCountry, 
-                            StudentZipCode, 
-                            ParentID,
-                            Role,
-                            Class, 
-                            RollNumber
-                        }
+                  { _id },
+                  {
+                    $set: {
+                      StudentGender,
+                      StudentFirstName,
+                      StudentMiddleName,
+                      StudentLastName,
+                      StudentDoB,
+                      StudentBloodGroup,
+                      StudentPhoneNumber,
+                      StudentAddress,
+                      StudentCity,
+                      StudentCountry,
+                      StudentZipCode,
+                      ParentID,
+                      StudentEmail,
+                      StudentUsername,
+                      StudentPassword,
+                      Role,
+                      Class,
+                      RollNumber,
                     },
-                    { upsert: true }
-            )
+                  },
+                  { upsert: true }
+                );
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
             } else if ( MaxFileSize >= SP) {
                 res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
             }  else {
             await SAPI.findByIdAndUpdate(
-                    { _id },
-                    {
-                        $set:
-                        {
-                            StudentPicture,
-                            StudentGender,
-                            StudentFirstName, 
-                            StudentMiddleName, 
-                            StudentLastName, 
-                            StudentDoB, 
-                            StudentBloodGroup, 
-                            StudentPhoneNumber, 
-                            StudentAddress, 
-                            StudentCity, 
-                            StudentCountry, 
-                            StudentZipCode, 
-                            ParentID,
-                            Role,
-                            Class, 
-                            RollNumber
-                        }
-                    },
-                    { upsert: true }
-            )
+              { _id },
+              {
+                $set: {
+                  StudentPicture,
+                  StudentGender,
+                  StudentFirstName,
+                  StudentMiddleName,
+                  StudentLastName,
+                  StudentDoB,
+                  StudentBloodGroup,
+                  StudentPhoneNumber,
+                  StudentAddress,
+                  StudentCity,
+                  StudentCountry,
+                  StudentZipCode,
+                  ParentID,
+                  StudentEmail,
+                  StudentUsername,
+                  StudentPassword,
+                  Role,
+                  Class,
+                  RollNumber,
+                },
+              },
+              { upsert: true }
+            );
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
              }
     } catch (error) {

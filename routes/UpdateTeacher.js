@@ -31,7 +31,7 @@ UpdateTeacher.use(express.static('public'))
 // Post all teachers from database
 
 UpdateTeacher.put('/UpdateTeachers/:id', upload.single('TeacherPicture'), async (req, res) => {
-    const { TeacherMale, TeacherFemale, TeacherOther, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours } = req.body
+    const { TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours } = req.body
     const _id = req.params.id;
     
     let TeacherPicture = req.file.filename
@@ -43,31 +43,21 @@ UpdateTeacher.put('/UpdateTeachers/:id', upload.single('TeacherPicture'), async 
 
     try {
 
-        if (!req.file) { 
+        
+        let UserBySchoolEmail = await Teachers.find({ SchoolEmail, TeacherFirstName })
+        let UserByTeacherUsername = await Teachers.find({ SchoolEmail, TeacherUsername })
+        let UserByTeacherEmail = await Teachers.find({ SchoolEmail, TeacherEmail })
+
+        if (UserBySchoolEmail.length > 0 && UserByTeacherUsername.length > 0 && UserByTeacherEmail.length > 0) {
+            res.send({status: 'error', message: 'User Already exists'})
+        } else if (!req.file) { 
+        } elseif (!req.file) { 
             await Teachers.findByIdAndUpdate(
                     { _id },
                     {
                         $set:
                         {
-                            TeacherMale, 
-                            TeacherFemale, 
-                            TeacherOther,  
-                            TeacherFirstName, 
-                            TeacherMiddleName, 
-                            TeacherLastName,
-                            TeacherDoB, 
-                            TeacherBloodGroup,
-                            TeacherPhoneNumber, 
-                            TeacherQualification, 
-                            TeacherAddress, 
-                            TeacherCity, 
-                            TeacherCountry, 
-                            TeacherZipCode, 
-                            TeacherJoiningDate, 
-                            TeacherLeavingDate, 
-                            TeacherCurrentPosition,
-                            TeacherEmployeeCode, 
-                            TeacherWorkingHours, 
+                            TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours
                         }
                     },
                     { upsert: true }
@@ -82,25 +72,7 @@ UpdateTeacher.put('/UpdateTeachers/:id', upload.single('TeacherPicture'), async 
                         $set:
                         {
                             TeacherPicture,
-                            TeacherMale, 
-                            TeacherFemale, 
-                            TeacherOther,  
-                            TeacherFirstName, 
-                            TeacherMiddleName, 
-                            TeacherLastName,
-                            TeacherDoB, 
-                            TeacherBloodGroup,
-                            TeacherPhoneNumber, 
-                            TeacherQualification, 
-                            TeacherAddress, 
-                            TeacherCity, 
-                            TeacherCountry, 
-                            TeacherZipCode, 
-                            TeacherJoiningDate, 
-                            TeacherLeavingDate, 
-                            TeacherCurrentPosition,
-                            TeacherEmployeeCode, 
-                            TeacherWorkingHours, 
+                            TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours
                         }
                     },
                     { upsert: true }

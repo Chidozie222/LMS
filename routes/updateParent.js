@@ -26,7 +26,7 @@ updateParent.use(express.static('public'))
 
 
 updateParent.put('/updateParent/:id', upload.single('ParentPicture'), async (req, res) => {
-    const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession } = req.body;
+    const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword,  ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession } = req.body;
     const _id = req.params.id
 
     let ParentPicture = req.file.filename;
@@ -45,7 +45,7 @@ updateParent.put('/updateParent/:id', upload.single('ParentPicture'), async (req
                 {
                     $set:
                     {
-                        ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession
+                        ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword, ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession
                     }
                 }
             )
@@ -59,7 +59,7 @@ updateParent.put('/updateParent/:id', upload.single('ParentPicture'), async (req
                     $set:
                     {
                         ParentPicture,
-                        ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentPassword, ParentBloodGroup, ParentPhone, ParentEducation, ParentProfession
+                        ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword, ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession
                     }
                 }
             )
