@@ -51,7 +51,6 @@ UpdateTeacher.put('/UpdateTeachers/:id', upload.single('TeacherPicture'), async 
         if (UserBySchoolEmail.length > 0 && UserByTeacherUsername.length > 0 && UserByTeacherEmail.length > 0) {
             res.send({status: 'error', message: 'User Already exists'})
         } else if (!req.file) { 
-        } elseif (!req.file) { 
             await Teachers.findByIdAndUpdate(
                     { _id },
                     {
