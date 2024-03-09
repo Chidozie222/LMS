@@ -96,38 +96,41 @@ UpdateSapi.put('/UpdateSapi/:id', upload.single('StudentPicture'), async (req, r
                   { upsert: true }
                 );
                 res.send({status: 'ok', message: 'Data uploaded successfully'})
-            } else if ( MaxFileSize >= SP) {
-                res.send({status: 'error', message: 'The pictures is greater than 3mb, please reduce it'})
-            }  else {
-            await SAPI.findByIdAndUpdate(
-              { _id },
-              {
-                $set: {
-                  StudentPicture,
-                  StudentGender,
-                  StudentFirstName,
-                  StudentMiddleName,
-                  StudentLastName,
-                  StudentDoB,
-                  StudentBloodGroup,
-                  StudentPhoneNumber,
-                  StudentAddress,
-                  StudentCity,
-                  StudentCountry,
-                  StudentZipCode,
-                  ParentID,
-                  StudentEmail,
-                  StudentUsername,
-                  StudentPassword,
-                  Role,
-                  Class,
-                  RollNumber,
+            } else if (SP > MaxFileSize) {
+              res.send({
+                status: "error",
+                message: "The pictures is greater than 3mb, please reduce it",
+              });
+            } else {
+              await SAPI.findByIdAndUpdate(
+                { _id },
+                {
+                  $set: {
+                    StudentPicture,
+                    StudentGender,
+                    StudentFirstName,
+                    StudentMiddleName,
+                    StudentLastName,
+                    StudentDoB,
+                    StudentBloodGroup,
+                    StudentPhoneNumber,
+                    StudentAddress,
+                    StudentCity,
+                    StudentCountry,
+                    StudentZipCode,
+                    ParentID,
+                    StudentEmail,
+                    StudentUsername,
+                    StudentPassword,
+                    Role,
+                    Class,
+                    RollNumber,
+                  },
                 },
-              },
-              { upsert: true }
-            );
-                res.send({status: 'ok', message: 'Data uploaded successfully'})
-             }
+                { upsert: true }
+              );
+              res.send({ status: "ok", message: "Data uploaded successfully" });
+            }
     } catch (error) {
         res.send({ status: 'error', message: error.message })
     }

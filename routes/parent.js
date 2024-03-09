@@ -49,7 +49,7 @@ parent.post('/post_parent', upload.single('ParentPicture'), async (req, res) => 
 
         if (!req.file) {
             res.status(400).send({ message: "image not found" })
-        } else if (MaxFileSize < PP) {
+        } else if (PP > MaxFileSize) {
             res.send({ message: 'The pictures is greater than 3mb, please reduce it' })
         } else if (userByUserName && userByEmail && userByPhoneNumber) {
             res.send({ message: `user already exists` })

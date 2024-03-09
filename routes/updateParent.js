@@ -71,20 +71,33 @@ updateParent.put('/updateParent/:id', upload.single('ParentPicture'), async (req
                 }
             )
             res.status(200).send({ message: `Parent data has been uploaded successfully` })
-        } else if (MaxFileSize < PP) {
-            res.send({ message: 'The pictures is greater than 3mb, please reduce it' })
+        } else if (PP > MaxFileSize) {
+          res.send({
+            message: "The pictures is greater than 3mb, please reduce it",
+          });
         } else {
-            await parentModel.findByIdAndUpdate(
-                { _id },
-                {
-                    $set:
-                    {
-                        ParentPicture,
-                        ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword, ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession
-                    }
-                }
-            )
-            res.status(200).send({ message: `Parent data has been uploaded successfully` })
+          await parentModel.findByIdAndUpdate(
+            { _id },
+            {
+              $set: {
+                ParentPicture,
+                ParentGender,
+                ParentFirstName,
+                ParentMiddleName,
+                ParentLastName,
+                ParentUserName,
+                ParentPassword,
+                ParentBloodGroup,
+                ParentEmail,
+                ParentPhone,
+                ParentEducation,
+                ParentProfession,
+              },
+            }
+          );
+          res
+            .status(200)
+            .send({ message: `Parent data has been uploaded successfully` });
         }
     } catch (error) {
         res.status(500).send({ message: error.message })
