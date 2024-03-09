@@ -40,11 +40,7 @@ UpdateSapi.put('/UpdateSapi/:id', upload.single('StudentPicture'), async (req, r
     const { StudentGender, StudentFirstName, StudentMiddleName, StudentLastName, StudentDoB, StudentBloodGroup, StudentPhoneNumber, StudentAddress, StudentCity, StudentCountry, StudentZipCode, StudentEmail, StudentUsername, StudentPassword, ParentID, Role, Class, RollNumber, SchoolEmail } = req.body;
     const _id = req.params.id
     
-    let StudentPicture = req.file.filename
-
-    let SP = req.file.size
-
-    let MaxFileSize = 3 * 1024 * 1024 * 1024
+    
 
     let UserByClassCapacity = await Classes.findOne({ SchoolEmail, Class })
     let userByClass = await SAPI.find({ SchoolEmail, Class })
@@ -54,6 +50,16 @@ UpdateSapi.put('/UpdateSapi/:id', upload.single('StudentPicture'), async (req, r
       StudentUsername,
     });
     let UserByStudentEmail = await SAPI.find({ SchoolEmail, StudentEmail });
+    let StudentPicture;
+    let SP;
+    let MaxFileSize;
+    if (req.file) {
+        StudentPicture = req.file.filename;
+         
+        SP = req.file.size;
+
+        MaxFileSize = 3 * 1024 * 1024 * 1024;
+    }
 
 
     try {

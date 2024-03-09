@@ -34,11 +34,18 @@ UpdateTeacher.put('/UpdateTeachers/:id', upload.single('TeacherPicture'), async 
     const { TeacherGender, TeacherFirstName, TeacherMiddleName, TeacherLastName, TeacherDoB, TeacherBloodGroup, TeacherPhoneNumber, TeacherQualification, TeacherAddress, TeacherCity, TeacherCountry, TeacherZipCode, TeacherEmail, TeacherUsername, TeacherPassword, TeacherJoiningDate, TeacherLeavingDate, TeacherCurrentPosition, TeacherEmployeeCode, TeacherWorkingHours, SchoolEmail } = req.body
     const _id = req.params.id;
     
-    let TeacherPicture = req.file.filename
+    let TeacherPicture;
 
-    let TP = req.file.size
+    let TP;
 
-    let MaxFileSize = 3 * 1024 * 1024 * 1024
+    let MaxFileSize;
+    if (req.file) {
+         TeacherPicture = req.file.filename;
+         
+         TP = req.file.size;
+         
+         MaxFileSize = 3 * 1024 * 1024 * 1024;
+    }
 
 
     try {

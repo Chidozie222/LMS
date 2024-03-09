@@ -29,12 +29,19 @@ updateParent.put('/updateParent/:id', upload.single('ParentPicture'), async (req
     const { ParentGender, ParentFirstName, ParentMiddleName, ParentLastName, ParentUserName, ParentPassword,  ParentBloodGroup, ParentEmail, ParentPhone, ParentEducation, ParentProfession, SchoolEmail } = req.body;
     const _id = req.params.id
 
-    let ParentPicture = req.file.filename;
+    let ParentPicture;
 
-    let PP = req.file.size
+    let PP;
 
+    let MaxFileSize;
 
-    let MaxFileSize = 3 * 1024 * 1024 * 1024
+    if (req.file) {
+        ParentPicture = req.file.filename;
+
+        PP = req.file.size;
+
+        MaxFileSize = 3 * 1024 * 1024 * 1024;
+    }
 
 
     try {
